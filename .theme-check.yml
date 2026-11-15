@@ -1,0 +1,9 @@
+extends: theme-check:recommended
+
+# Der Shop ist nur deutschsprachig (de + englische Default-Locale von Horizon).
+# Eigene Übersetzungsschlüssel (z. B. vehicle_selector) pflegen wir deshalb nur in
+# locales/de(.schema).json und locales/en.default(.schema).json. Das hält die übrigen
+# Locale-Dateien identisch mit upstream (Shopify/horizon) und vermeidet Merge-Konflikte
+# bei Horizon-Updates.
+MatchingTranslations:
+  enabled: false

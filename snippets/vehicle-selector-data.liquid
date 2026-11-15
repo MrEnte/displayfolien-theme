@@ -1,0 +1,81 @@
+{%- doc -%}
+  Gibt alle Displayausführungen mit bestätigter Passform als JSON-Array aus,
+  inklusive der aufgelösten Kette Baureihe → Modell → Marke.
+  Wird von sections/vehicle-selector.liquid in ein <script type="application/json"> gerendert.
+
+  Format je Eintrag:
+  {
+    "id": handle, "name", "hint", "image", "imageAlt", "productUrl",
+    "series": { "id", "name", "from", "to" },
+    "model":  { "id", "name" },
+    "brand":  { "id", "name" }
+  }
+
+  @example
+  <script type="application/json">{% render 'vehicle-selector-data' %}</script>
+{%- enddoc -%}
+
+{%- comment -%}
+  LIMITS (Stand Shopify-Liquid-Doku, November 2026):
+  - Ohne {% paginate %} liefert eine for-Schleife über metaobjects.TYPE.values höchstens
+    50 Einträge. Mit paginate sind bis zu 250 Einträge pro Seite möglich, deshalb "by 250".
+  - Wir lesen nur Seite 1. Ab mehr als 250 Displayausführungen (bestätigte UND unbestätigte,
+    gefiltert wird erst in der Schleife) fehlen Einträge → dann umbauen, z. B.:
+      a) Daten per JS aus einem eigenen Endpunkt laden (Storefront API mit PUBLIC_READ,
+         oder eine eigene Seite/Section über die Section Rendering API), oder
+      b) die Auswahl stufenweise laden (erst Marken, dann Modelle …).
+    Sicherheitsabstand: spätestens bei ca. 200 Displayausführungen umbauen.
+  - paginate verwendet den URL-Parameter ?page=. Auf Seiten, die selbst paginieren
+    (z. B. Kollektionsseiten ab Seite 2), würde hier ebenfalls Seite 2 gelesen und die Liste
+    wäre leer/unvollständig. Vor dem Einsatz auf Kollektionsseiten daher auf Variante a)
+    umstellen.
+  - Jeder Eintrag löst 3 Referenzen auf (Baureihe, Modell, Marke). Bei sehr vielen
+    Einträgen steigt die Renderzeit der Seite; auch das spricht ab ~200 Einträgen für a).
+{%- endcomment -%}
+
+{%- liquid
+  assign first_entry = true
+  echo '['
+-%}
+{%- paginate metaobjects.display_ausfuehrung.values by 250 -%}
+  {%- for display in metaobjects.display_ausfuehrung.values -%}
+    {%- liquid
+      unless display.passform_bestaetigt.value == true
+        continue
+      endunless
+
+      assign series = display.baureihe.value
+      assign model = series.modell.value
+      assign brand = model.marke.value
+
+      if series == blank or model == blank or brand == blank
+        continue
+      endif
+
+      unless first_entry
+        echo ','
+      endunless
+      assign first_entry = false
+
+      assign image = display.bild.value
+      assign product = display.produkt.value
+    -%}
+    {
+    "id": {{ display.system.handle | json }},
+    "name": {{ display.name.value | json }},
+    "hint": {{ display.erkennungshinweis.value | default: '' | json }},
+    "image": {% if image != blank %}{{ image | image_url: width: 480 | json }}{% else %}null{% endif %},
+    "imageAlt": {% if image != blank %}{{ image.alt | default: display.name.value | json }}{% else %}null{% endif %},
+    "productUrl": {% if product != blank %}{{ product.url | json }}{% else %}null{% endif %},
+    "series": {
+    "id": {{ series.system.handle | json }},
+    "name": {{ series.name.value | json }},
+    "from": {{ series.baujahr_von.value | json }},
+    "to": {% if series.baujahr_bis.value != blank %}{{ series.baujahr_bis.value | json }}{% else %}null{% endif %}
+    },
+    "model": { "id": {{ model.system.handle | json }}, "name": {{ model.name.value | json }} },
+    "brand": { "id": {{ brand.system.handle | json }}, "name": {{ brand.name.value | json }} }
+    }
+  {%- endfor -%}
+{%- endpaginate -%}
+]

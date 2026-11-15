@@ -40,12 +40,30 @@ Produkt-Metafeld: `custom.kompatible_displays` = Liste von `display_ausfuehrung`
 Im Shop nur Displayausführungen anzeigen, bei denen `passform_bestaetigt = true` ist.
 Passformdaten müssen vom Inhaber bestätigt sein. Einträge mit „BEISPIELDATEN“ im Erkennungshinweis sind ungeprüfte Testdaten.
 
+**Testwerte (nur zum Testen der Fahrzeugauswahl, vor dem Launch auf `false` zurücksetzen):**
+Diese BEISPIELDATEN-Displays stehen seit 15.11.2026 vorübergehend auf `passform_bestaetigt = true`:
+- `vw-golf-8-10-navi-discover-pro` (VW Golf 8, 10" Navi Discover Pro)
+- `tesla-model-3-highland-15-4-zentraldisplay` (Tesla Model 3 Highland, 15,4" Zentraldisplay)
+
+## Theme-Konventionen
+- Eigene Übersetzungsschlüssel nur in `locales/de(.schema).json` und `locales/en.default(.schema).json`;
+  die übrigen Locales bleiben identisch mit upstream. `MatchingTranslations` ist dafür in `.theme-check.yml` deaktiviert.
+- Fahrzeugauswahl: `sections/vehicle-selector.liquid`, `snippets/vehicle-selector-data.liquid`, `assets/vehicle-selector.js`.
+
 ## Meilenstein 1 – Umfang
 1. ✅ Partner-Konto, Client-Transfer-Store
 2. ✅ Lokales Setup (CLI, Horizon, GitHub)
 3. Startseite mit Fahrzeugauswahl im Kopfbereich (Marke → Modell → Baujahr → Display)
-4. Fahrzeug-Datenmodell (siehe oben) + 3–5 Beispielmodelle
+4. ✅ Fahrzeug-Datenmodell (siehe oben) + 3–5 Beispielmodelle
 5. Fahrzeugauswahl (Eigenbau im Theme)
 6. Produktseiten-Template: Bilder, Kompatibilität, Lieferumfang, Montagehinweise/Video, Lieferzeit
 7. Varianten: matt/klar × Einzelfolie/Set
 8. Testbestellung (Bogus Gateway), Bestellbestätigung, Übergabe an Produktion per Shopify Flow
+
+## Offene Punkte
+- Fahrzeugauswahl auf Kollektionsseiten: `snippets/vehicle-selector-data.liquid` nutzt `{% paginate %}`, das den
+  URL-Parameter `?page=` mitliest. Auf Kollektionsseiten ab Seite 2 wäre die Fahrzeugliste deshalb leer/unvollständig.
+  Vor dem Einsatz dort Daten anders laden (z. B. per JS über Section Rendering API oder Storefront API).
+- Liquid liest max. 250 Displayausführungen (inkl. unbestätigter). Ab ca. 200 Einträgen auf Nachladen per JS umbauen.
+- Kontaktseite `/pages/kontakt` im Admin anlegen (wird von der Fahrzeugauswahl verlinkt).
+- Testwerte `passform_bestaetigt = true` (siehe oben) vor dem Launch zurücksetzen.

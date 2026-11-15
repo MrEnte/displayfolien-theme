@@ -1134,5 +1134,18 @@
     "storytelling": "Storytelling",
     "text": "Text",
     "blog_post": "Blog-Beitrag"
+  },
+  "vehicle_selector": {
+    "name": "Fahrzeugauswahl",
+    "settings": {
+      "heading": "Überschrift",
+      "subheading": "Untertitel",
+      "contact_url": "Kontaktseite",
+      "contact_url_info": "Wird verlinkt, wenn es für das gewählte Display noch keine Folie gibt. Standard: /pages/kontakt"
+    },
+    "defaults": {
+      "heading": "Finde die passende Displayschutzfolie",
+      "subheading": "Wähle dein Fahrzeug und dein Display – wir zeigen dir die passgenaue Folie."
+    }
   }
 }

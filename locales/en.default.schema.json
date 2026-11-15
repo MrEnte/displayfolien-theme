@@ -1241,5 +1241,18 @@
     "when_will_order_arrive": "When will I get my order?",
     "where_are_products_made": "Where are your products manufactured?",
     "disclosures": "Disclosures"
+  },
+  "vehicle_selector": {
+    "name": "Vehicle selector",
+    "settings": {
+      "heading": "Heading",
+      "subheading": "Subheading",
+      "contact_url": "Contact page",
+      "contact_url_info": "Linked when no film exists for the selected display. Default: /pages/kontakt"
+    },
+    "defaults": {
+      "heading": "Find the right screen protector",
+      "subheading": "Choose your vehicle and display – we'll show you the perfectly fitting film."
+    }
   }
 }
