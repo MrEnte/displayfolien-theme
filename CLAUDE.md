@@ -55,6 +55,10 @@ Diese BEISPIELDATEN-Displays stehen seit 15.11.2026 vorübergehend auf `passform
 - Eigene Übersetzungsschlüssel nur in `locales/de(.schema).json` und `locales/en.default(.schema).json`;
   die übrigen Locales bleiben identisch mit upstream. `MatchingTranslations` ist dafür in `.theme-check.yml` deaktiviert.
 - Fahrzeugauswahl: `sections/vehicle-selector.liquid`, `snippets/vehicle-selector-data.liquid`, `assets/vehicle-selector.js`.
+- Produktseite: Template `templates/product.displayfolie.json` (Produkte mit `templateSuffix = displayfolie`).
+  Eigene Blöcke: `blocks/product-compatibility.liquid` (liest `custom.kompatible_displays`, nur bestätigte Passform),
+  `blocks/product-delivery-scope.liquid` + `assets/product-delivery-scope.js` (Text je nach Variante Einzelfolie/Set).
+  Lieferzeit, Montagehinweise und Video sind Horizon-Standardblöcke (Text, Akkordeon, Video) im Template.
 
 ## Meilenstein 1 – Umfang
 1. ✅ Partner-Konto, Client-Transfer-Store
@@ -62,7 +66,7 @@ Diese BEISPIELDATEN-Displays stehen seit 15.11.2026 vorübergehend auf `passform
 3. ✅ Startseite mit Fahrzeugauswahl im Kopfbereich (Marke → Modell → Baujahr → Display)
 4. ✅ Fahrzeug-Datenmodell (siehe oben) + 3–5 Beispielmodelle
 5. ✅ Fahrzeugauswahl (Eigenbau im Theme)
-6. Produktseiten-Template: Bilder, Kompatibilität, Lieferumfang, Montagehinweise/Video, Lieferzeit
+6. ✅ Produktseiten-Template: Bilder, Kompatibilität, Lieferumfang, Montagehinweise/Video, Lieferzeit
 7. ✅ Varianten: matt/klar × Einzelfolie/Set (Testprodukte, siehe oben)
 8. Testbestellung (Bogus Gateway), Bestellbestätigung, Übergabe an Produktion per Shopify Flow
 
@@ -73,4 +77,6 @@ Diese BEISPIELDATEN-Displays stehen seit 15.11.2026 vorübergehend auf `passform
 - Liquid liest max. 250 Displayausführungen (inkl. unbestätigter). Ab ca. 200 Einträgen auf Nachladen per JS umbauen.
 - Kontaktseite `/pages/kontakt` im Admin anlegen (wird von der Fahrzeugauswahl verlinkt).
 - Testwerte `passform_bestaetigt = true` und Testprodukte (siehe oben) vor dem Launch zurücksetzen bzw. ersetzen.
+- Produktseite: Texte für Lieferzeit, Lieferumfang und Montage sind Platzhalter im Template; Produktbilder und
+  Montagevideo fehlen noch (Video-Block zeigt bis dahin einen Platzhalter).
 - `theme dev` mit `--theme-editor-sync` starten, sonst landen Editor-Änderungen nicht lokal.

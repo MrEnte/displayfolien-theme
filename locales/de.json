@@ -387,5 +387,10 @@
     "submit": "Passende Folie anzeigen",
     "no_product": "Für dieses Display haben wir noch keine Folie –",
     "contact_link": "frag uns an"
+  },
+  "product_fit": {
+    "until_today": "heute",
+    "display": "Display",
+    "none": "Angaben zur Kompatibilität folgen in Kürze."
   }
 }

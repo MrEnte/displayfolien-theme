@@ -417,5 +417,10 @@
     "submit": "Show matching film",
     "no_product": "We don't have a film for this display yet –",
     "contact_link": "ask us"
+  },
+  "product_fit": {
+    "until_today": "today",
+    "display": "Display",
+    "none": "Compatibility details will follow soon."
   }
 }

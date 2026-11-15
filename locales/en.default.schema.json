@@ -1254,5 +1254,19 @@
       "heading": "Find the right screen protector",
       "subheading": "Choose your vehicle and display – we'll show you the perfectly fitting film."
     }
+  },
+  "product_fit": {
+    "compatibility": {
+      "name": "Vehicle compatibility",
+      "heading": "Heading",
+      "show_hint": "Show identification hint"
+    },
+    "delivery_scope": {
+      "name": "Package contents",
+      "content_single": "Contents: single film",
+      "content_set": "Contents: installation kit",
+      "set_value": "Option value for the kit",
+      "set_value_info": "When the selected variant has this option value, the kit text is shown."
+    }
   }
 }

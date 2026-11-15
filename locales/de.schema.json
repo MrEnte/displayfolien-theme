@@ -1147,5 +1147,19 @@
       "heading": "Finde die passende Displayschutzfolie",
       "subheading": "Wähle dein Fahrzeug und dein Display – wir zeigen dir die passgenaue Folie."
     }
+  },
+  "product_fit": {
+    "compatibility": {
+      "name": "Fahrzeug-Kompatibilität",
+      "heading": "Überschrift",
+      "show_hint": "Erkennungshinweis anzeigen"
+    },
+    "delivery_scope": {
+      "name": "Lieferumfang",
+      "content_single": "Lieferumfang: Einzelfolie",
+      "content_set": "Lieferumfang: Montage-Set",
+      "set_value": "Optionswert für das Set",
+      "set_value_info": "Hat die gewählte Variante diesen Optionswert, wird der Set-Text angezeigt."
+    }
   }
 }

@@ -1,0 +1,88 @@
+{%- doc -%}
+  Lieferumfang je nach gewählter Variante: Text für die Einzelfolie oder für das Montage-Set.
+  Ob das Set gewählt ist, wird über den Optionswert (Setting "set_value") erkannt.
+  Beim Variantenwechsel schaltet assets/product-delivery-scope.js den Text um.
+{%- enddoc -%}
+
+{%- liquid
+  assign product_resource = closest.product
+  assign selected_variant = product_resource.selected_or_first_available_variant
+  assign is_set = false
+  if selected_variant.options contains block.settings.set_value
+    assign is_set = true
+  endif
+-%}
+
+<script
+  src="{{ 'product-delivery-scope.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
+
+<product-delivery-scope-component
+  class="product-delivery-scope"
+  data-set-value="{{ block.settings.set_value | escape }}"
+  data-product-id="{{ product_resource.id }}"
+  {{ block.shopify_attributes }}
+>
+  <div
+    class="rte"
+    ref="single"
+    {% if is_set %}
+      hidden
+    {% endif %}
+  >
+    {{ block.settings.content_single }}
+  </div>
+  <div
+    class="rte"
+    ref="set"
+    {% unless is_set %}
+      hidden
+    {% endunless %}
+  >
+    {{ block.settings.content_set }}
+  </div>
+</product-delivery-scope-component>
+
+{% stylesheet %}
+  .product-delivery-scope {
+    display: block;
+    width: 100%;
+  }
+
+  .product-delivery-scope [hidden] {
+    display: none;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:product_fit.delivery_scope.name",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "content_single",
+      "label": "t:product_fit.delivery_scope.content_single"
+    },
+    {
+      "type": "richtext",
+      "id": "content_set",
+      "label": "t:product_fit.delivery_scope.content_set"
+    },
+    {
+      "type": "text",
+      "id": "set_value",
+      "label": "t:product_fit.delivery_scope.set_value",
+      "info": "t:product_fit.delivery_scope.set_value_info",
+      "default": "Montage-Set"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:product_fit.delivery_scope.name",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

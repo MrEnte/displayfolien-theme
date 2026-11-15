@@ -183,6 +183,7 @@ def main():
                 "productType": "Displayschutzfolie",
                 "tags": p["tags"],
                 "status": "ACTIVE",
+                "templateSuffix": "displayfolie",  # templates/product.displayfolie.json
                 "productOptions": [
                     {"name": "Oberfläche", "position": 1, "values": [{"name": n} for n, _ in OBERFLAECHEN]},
                     {"name": "Lieferumfang", "position": 2, "values": [{"name": n} for n, _, _ in UMFAENGE]},
