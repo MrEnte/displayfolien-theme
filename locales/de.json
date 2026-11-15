@@ -370,5 +370,22 @@
       "success_moderated": "Kommentar gepostet, Moderation ausstehend",
       "success": "Kommentar gepostet"
     }
+  },
+  "vehicle_selector": {
+    "empty": "Die Fahrzeugauswahl wird gerade vorbereitet. Schau bald wieder vorbei.",
+    "your_vehicle": "Dein Fahrzeug:",
+    "change_vehicle": "Fahrzeug ändern",
+    "brand": "Marke",
+    "model": "Modell",
+    "year": "Baujahr",
+    "display": "Displayausführung",
+    "choose_brand": "Marke wählen",
+    "choose_model": "Modell wählen",
+    "choose_year": "Baujahr wählen",
+    "display_help": "Anhand der Hinweise erkennst du, welches Display in deinem Fahrzeug verbaut ist.",
+    "no_display_for_year": "Für dieses Baujahr haben wir noch kein bestätigtes Display.",
+    "submit": "Passende Folie anzeigen",
+    "no_product": "Für dieses Display haben wir noch keine Folie –",
+    "contact_link": "frag uns an"
   }
 }

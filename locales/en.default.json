@@ -400,5 +400,22 @@
       "default_title": "Default Title",
       "sticky_add_to_cart": "Quick add to cart bar"
     }
+  },
+  "vehicle_selector": {
+    "empty": "The vehicle selector is being prepared. Please check back soon.",
+    "your_vehicle": "Your vehicle:",
+    "change_vehicle": "Change vehicle",
+    "brand": "Brand",
+    "model": "Model",
+    "year": "Year of manufacture",
+    "display": "Display",
+    "choose_brand": "Choose brand",
+    "choose_model": "Choose model",
+    "choose_year": "Choose year",
+    "display_help": "Check the notes to identify your display.",
+    "no_display_for_year": "We don't have a confirmed display for this year yet.",
+    "submit": "Show matching film",
+    "no_product": "We don't have a film for this display yet –",
+    "contact_link": "ask us"
   }
 }
