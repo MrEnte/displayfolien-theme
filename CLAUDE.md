@@ -21,10 +21,24 @@ Der Store wird später an den Inhaber übertragen und läuft dann im **Basic**-T
   `.shopifyignore`) für Screenshots der `theme dev`-Vorschau. Die Datei legt nur der Inhaber/Entwickler selbst an;
   Claude liest den Wert nur zur Laufzeit im Skript und gibt ihn nie aus.
 
+## Deployment (GitHub-Integration)
+- Live-Theme **`displayfolien-theme/main`** (#211350258001) ist per Shopify-GitHub-Integration mit
+  `MrEnte/displayfolien-theme`, Branch `main`, verbunden: **jeder Push auf `main` geht automatisch live**
+  (hinter dem Passwortschutz). Deshalb nur geprüften Stand auf `main` pushen (`shopify theme check` ohne Fehler,
+  Vorschau angesehen); größere Umbauten auf einem Feature-Branch.
+- Shopify committet Änderungen aus dem Theme-Editor des Live-Themes zurück nach GitHub → **vor jeder Arbeit
+  `git pull` auf `main`**, sonst gibt es Konflikte.
+- Shopify ergänzt in den Locale-Dateien einen Kommentarkopf („auto-generated“); das ist inhaltlich unverändert.
+- Weitere Themes: `Horizon` (#211330302289, Original, Sicherung), `"Horizon – main"` (#211334201681, alte,
+  nicht mehr verbundene Kopie – kann nach Rückfrage gelöscht werden), Development-Theme von `theme dev`.
+
 ## Werkzeuge
-- Theme lokal: `shopify theme dev --store displayfolien-shop-b6zvvgf1.myshopify.com` (Store-Passwort fragt die CLI ab)
+- Theme lokal: `shopify theme dev --store displayfolien-shop-b6zvvgf1.myshopify.com --theme-editor-sync`
+  (Store-Passwort fragt die CLI ab). Lokale Vorschau `http://127.0.0.1:9292`; dort zeigt Shopifys Cookie-Banner
+  bei jedem Seitenwechsel erneut (nur lokal über http, im echten Shop nicht). Realistischer Test über
+  `https://displayfolien-shop-b6zvvgf1.myshopify.com/?preview_theme_id=<ID>`.
 - Theme prüfen: `shopify theme check`
-- Admin-API: `shopify store auth --store … --scopes …` einmalig (aktuelle Scopes: read/write_metaobject_definitions, read/write_metaobjects, read/write_products, read/write_themes, read/write_publications, read_locales), danach `shopify store execute --store … [--allow-mutations]`
+- Admin-API: `shopify store auth --store … --scopes …` einmalig (aktuelle Scopes: read/write_metaobject_definitions, read/write_metaobjects, read/write_products, read/write_themes, read/write_publications, read_locales; Datei-Uploads per `stagedUploadsCreate` + `fileCreate` funktionieren damit ebenfalls), danach `shopify store execute --store … [--allow-mutations]`
 - Vor dem Schreiben von GraphQL/Liquid die Shopify-AI-Toolkit-Skills nutzen (Doku durchsuchen, gegen Schema validieren).
 - Hilfsskripte liegen in `scripts/` (stehen in `.shopifyignore`, werden nicht ins Theme hochgeladen).
 
@@ -99,4 +113,3 @@ Diese BEISPIELDATEN-Displays stehen seit 15.11.2026 vorübergehend auf `passform
 - Navigationsmenüs (Main menu/Footer menu: „Home“, „Catalog“, „Contact“, „Search“) und Shop-Name sind noch englisch bzw.
   „displayfolien-shop“ – im Admin unter Inhalte → Menüs bzw. Einstellungen anpassen. Preisformat „€14,90“ → „14,90 €“
   unter Einstellungen → Allgemein → Währungsformat.
-- `theme dev` mit `--theme-editor-sync` starten, sonst landen Editor-Änderungen nicht lokal.
