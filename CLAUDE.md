@@ -62,6 +62,9 @@ Diese BEISPIELDATEN-Displays stehen seit 15.11.2026 vorübergehend auf `passform
   Eigene Blöcke: `blocks/product-compatibility.liquid` (liest `custom.kompatible_displays`, nur bestätigte Passform),
   `blocks/product-delivery-scope.liquid` + `assets/product-delivery-scope.js` (Text je nach Variante Einzelfolie/Set).
   Lieferzeit, Montagehinweise und Video sind Horizon-Standardblöcke (Text, Akkordeon, Video) im Template.
+  Weitere Blöcke: `product-fit-badge` (+ `assets/product-fit-badge.js`, zeigt „Passt zu deinem Fahrzeug“ anhand des
+  localStorage-Eintrags der Fahrzeugauswahl) und `product-trust` (Vertrauensbox). Unter dem Produkt: Vorteilsleiste,
+  Klar vs. Matt, Montage-Schritte, FAQ (Sections `feature-cards`/`faq`).
 - Design „technisch & premium“: Palette Navy `#0B1222`, Akzent Elektroblau `#2F6BFF`, Hellblau `#E8EEFF`,
   Überschriften Space Grotesk, Text Inter (in `config/settings_data.json`).
 - Eigene Sections: `feature-cards` (Layouts Leiste/Karten/Schritte, Hintergrund Standard/Weiß/Hellblau/Dunkel,
@@ -85,8 +88,9 @@ Diese BEISPIELDATEN-Displays stehen seit 15.11.2026 vorübergehend auf `passform
 - Liquid liest max. 250 Displayausführungen (inkl. unbestätigter). Ab ca. 200 Einträgen auf Nachladen per JS umbauen.
 - Kontaktseite `/pages/kontakt` im Admin anlegen (wird von der Fahrzeugauswahl verlinkt).
 - Testwerte `passform_bestaetigt = true` und Testprodukte (siehe oben) vor dem Launch zurücksetzen bzw. ersetzen.
-- Produktseite: Texte für Lieferzeit, Lieferumfang und Montage sind Platzhalter im Template; Produktbilder und
-  Montagevideo fehlen noch (Video-Block zeigt bis dahin einen Platzhalter).
+- Produktseite: Texte für Lieferzeit, Lieferumfang und Montage sind Platzhalter im Template. Die Testprodukte haben je
+  6 generierte Platzhalterbilder (gelbes Label „PLATZHALTER“, Variantenbilder Klar/Matt) – vor dem Launch durch echte
+  Fotos ersetzen. Montagevideo fehlt noch (Video-Block zeigt bis dahin einen Platzhalter).
 - Navigationsmenüs (Main menu/Footer menu: „Home“, „Catalog“, „Contact“, „Search“) und Shop-Name sind noch englisch bzw.
   „displayfolien-shop“ – im Admin unter Inhalte → Menüs bzw. Einstellungen anpassen. Preisformat „€14,90“ → „14,90 €“
   unter Einstellungen → Allgemein → Währungsformat.

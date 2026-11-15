@@ -21,6 +21,7 @@ const STORAGE_KEY = 'displayfolien:fahrzeug';
  * @property {string} model
  * @property {string} year
  * @property {string} display
+ * @property {string} [label] - Lesbarer Name, z. B. "VW Golf (2021)" – für assets/product-fit-badge.js
  */
 
 /**
@@ -302,6 +303,7 @@ class VehicleSelectorComponent extends Component {
       model: this.refs.model.value,
       year: this.refs.year.value,
       display: display.id,
+      label: `${display.brand.name} ${display.model.name} (${this.refs.year.value})`,
     };
 
     try {

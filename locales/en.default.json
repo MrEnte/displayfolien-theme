@@ -424,6 +424,9 @@
   "product_fit": {
     "until_today": "today",
     "display": "Display",
-    "none": "Compatibility details will follow soon."
+    "none": "Compatibility details will follow soon.",
+    "fit_yes": "Fits your vehicle ([vehicle])",
+    "fit_no": "According to our data, this doesn't fit your vehicle ([vehicle]).",
+    "fit_change": "Change vehicle"
   }
 }

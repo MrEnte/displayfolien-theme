@@ -1170,6 +1170,14 @@
       "content_set": "Lieferumfang: Montage-Set",
       "set_value": "Optionswert für das Set",
       "set_value_info": "Hat die gewählte Variante diesen Optionswert, wird der Set-Text angezeigt."
+    },
+    "fit_badge": {
+      "name": "Passt zu deinem Fahrzeug"
+    },
+    "trust": {
+      "name": "Vertrauensbox",
+      "items": "Punkte",
+      "items_info": "Ein Punkt pro Zeile"
     }
   },
   "custom_sections": {

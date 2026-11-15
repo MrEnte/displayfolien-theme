@@ -1,0 +1,88 @@
+{%- doc -%}
+  Kompakte Vertrauensbox mit Häkchen-Liste (ein Punkt pro Zeile im Setting "items").
+{%- enddoc -%}
+
+{%- assign items = block.settings.items | newline_to_br | split: '<br />' -%}
+
+<ul
+  class="product-trust"
+  role="list"
+  {{ block.shopify_attributes }}
+>
+  {%- for item in items -%}
+    {%- assign item_text = item | strip -%}
+    {%- if item_text != blank -%}
+      <li class="product-trust__item">
+        <svg
+          class="product-trust__icon"
+          viewBox="0 0 16 16"
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M3 8.5l3 3 7-7" />
+        </svg>
+        {{ item_text | escape }}
+      </li>
+    {%- endif -%}
+  {%- endfor -%}
+</ul>
+
+{% stylesheet %}
+  .product-trust {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.625rem 1rem;
+    width: 100%;
+    margin: 0;
+    padding: 1rem 1.125rem;
+    list-style: none;
+    border-radius: 14px;
+    background: #e8eeff;
+    color: #0b1222;
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+
+  @media screen and (min-width: 750px) {
+    .product-trust {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .product-trust__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .product-trust__icon {
+    flex-shrink: 0;
+    color: #2f6bff;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:product_fit.trust.name",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "items",
+      "label": "t:product_fit.trust.items",
+      "info": "t:product_fit.trust.items_info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:product_fit.trust.name",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

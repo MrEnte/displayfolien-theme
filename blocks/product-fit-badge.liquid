@@ -1,0 +1,122 @@
+{%- doc -%}
+  Zeigt auf der Produktseite, ob die Folie zum in der Fahrzeugauswahl gespeicherten Fahrzeug passt
+  (localStorage-Schlüssel "displayfolien:fahrzeug", siehe assets/vehicle-selector.js).
+  Ohne gespeichertes Fahrzeug bleibt der Block unsichtbar.
+{%- enddoc -%}
+
+{%- liquid
+  assign displays = closest.product.metafields.custom.kompatible_displays.value
+  assign handles = ''
+  for display in displays
+    if display.passform_bestaetigt.value == true
+      assign handles = handles | append: display.system.handle | append: ','
+    endif
+  endfor
+-%}
+
+<script
+  src="{{ 'product-fit-badge.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
+
+<product-fit-badge
+  class="product-fit-badge"
+  data-displays="{{ handles | escape }}"
+  data-text-yes="{{ 'product_fit.fit_yes' | t | escape }}"
+  data-text-no="{{ 'product_fit.fit_no' | t | escape }}"
+  data-link-text="{{ 'product_fit.fit_change' | t | escape }}"
+  data-link-url="{{ routes.root_url }}"
+  hidden
+  {{ block.shopify_attributes }}
+>
+  <span
+    class="product-fit-badge__icon"
+    aria-hidden="true"
+  ></span>
+  <span
+    class="product-fit-badge__text"
+    role="status"
+  ></span>
+  <a class="product-fit-badge__link"></a>
+</product-fit-badge>
+
+{% stylesheet %}
+  .product-fit-badge {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+
+  .product-fit-badge[hidden] {
+    display: none;
+  }
+
+  .product-fit-badge--yes {
+    background: rgb(22 163 74 / 0.1);
+    color: #14532d;
+  }
+
+  .product-fit-badge--no {
+    background: rgb(245 158 11 / 0.14);
+    color: #78350f;
+  }
+
+  .product-fit-badge__icon {
+    display: inline-grid;
+    place-items: center;
+    width: 1.375rem;
+    height: 1.375rem;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .product-fit-badge--yes .product-fit-badge__icon {
+    background: #16a34a;
+  }
+
+  .product-fit-badge--yes .product-fit-badge__icon::before {
+    content: '✓';
+  }
+
+  .product-fit-badge--no .product-fit-badge__icon {
+    background: #d97706;
+  }
+
+  .product-fit-badge--no .product-fit-badge__icon::before {
+    content: '!';
+  }
+
+  .product-fit-badge__text {
+    flex: 1 1 12rem;
+  }
+
+  .product-fit-badge__link {
+    color: inherit;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:product_fit.fit_badge.name",
+  "settings": [],
+  "presets": [
+    {
+      "name": "t:product_fit.fit_badge.name",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

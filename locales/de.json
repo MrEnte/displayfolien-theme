@@ -394,6 +394,9 @@
   "product_fit": {
     "until_today": "heute",
     "display": "Display",
-    "none": "Angaben zur Kompatibilität folgen in Kürze."
+    "none": "Angaben zur Kompatibilität folgen in Kürze.",
+    "fit_yes": "Passt zu deinem Fahrzeug ([vehicle])",
+    "fit_no": "Passt laut unseren Daten nicht zu deinem Fahrzeug ([vehicle]).",
+    "fit_change": "Fahrzeug ändern"
   }
 }

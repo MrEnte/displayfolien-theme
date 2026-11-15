@@ -7,27 +7,28 @@
           "type": "_product-media-gallery",
           "static": true,
           "settings": {
-            "media_presentation": "grid",
+            "media_presentation": "carousel",
             "media_columns": "two",
             "image_gap": 4,
             "large_first_image": false,
             "icons_style": "arrow",
-            "slideshow_controls_style": "counter",
+            "slideshow_controls_style": "thumbnails",
             "slideshow_mobile_controls_style": "dots",
-            "thumbnail_position": "right",
-            "thumbnail_width": 44,
-            "aspect_ratio": "adapt",
+            "thumbnail_position": "bottom",
+            "thumbnail_width": 64,
+            "aspect_ratio": "1",
             "constrain_to_viewport": true,
-            "media_fit": "contain",
-            "media_radius": 0,
+            "media_fit": "cover",
+            "media_radius": 20,
             "extend_media": false,
             "zoom": true,
             "video_loop": false,
-            "hide_variants": true,
+            "hide_variants": false,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "thumbnail_radius": 10
           },
           "blocks": {}
         },
@@ -41,7 +42,7 @@
             "custom_width_mobile": 100,
             "height": "fit",
             "details_position": "flex-start",
-            "gap": 28,
+            "gap": 20,
             "sticky_details_desktop": true,
             "background_media": "none",
             "video_position": "cover",
@@ -232,15 +233,6 @@
               },
               "blocks": {}
             },
-            "lieferzeit": {
-              "type": "text",
-              "settings": {
-                "text": "<p><strong>Lieferzeit:</strong> Fertigung in 1–2 Werktagen, Versand mit DHL in 2–3 Werktagen (Deutschland).</p>",
-                "width": "100%",
-                "type_preset": "rte"
-              },
-              "blocks": {}
-            },
             "accordion_infos": {
               "type": "accordion",
               "settings": {},
@@ -343,14 +335,27 @@
                 "row_montage",
                 "row_versand"
               ]
+            },
+            "fit_badge": {
+              "type": "product-fit-badge",
+              "settings": {},
+              "blocks": {}
+            },
+            "trust": {
+              "type": "product-trust",
+              "settings": {
+                "items": "Passform geprüft\nBlasenfreie Montage\nFertigung in 1–2 Werktagen\nVersand mit DHL (2–3 Tage)"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
             "group_icgrde",
+            "fit_badge",
             "divider_VJhene",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
-            "lieferzeit",
+            "trust",
             "text_aEtTtq",
             "accordion_infos"
           ]
@@ -370,11 +375,11 @@
       "settings": {
         "content_width": "content-center-aligned",
         "desktop_media_position": "left",
-        "equal_columns": false,
+        "equal_columns": true,
         "limit_details_width": false,
         "gap": 48,
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "padding-block-start": 32,
+        "padding-block-end": 48
       }
     },
     "product_recommendations_qggXJq": {
@@ -511,10 +516,204 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "usp_bar": {
+      "type": "feature-cards",
+      "settings": {
+        "layout": "usp",
+        "tone": "white",
+        "padding-block-start": 28,
+        "padding-block-end": 28
+      },
+      "blocks": {
+        "item_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "target",
+            "title": "Millimetergenau",
+            "text": "<p>Für dein Display zugeschnitten</p>"
+          }
+        },
+        "item_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Blasenfrei",
+            "text": "<p>Einfache Montage in 10 Minuten</p>"
+          }
+        },
+        "item_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "title": "Kratzschutz",
+            "text": "<p>Schützt vor Kratzern & Abdrücken</p>"
+          }
+        },
+        "item_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck",
+            "title": "Versand in 48 h",
+            "text": "<p>Gefertigt in Deutschland</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4"
+      ]
+    },
+    "clear_vs_matte": {
+      "type": "feature-cards",
+      "settings": {
+        "layout": "cards",
+        "tone": "dark",
+        "eyebrow": "Klar oder matt?",
+        "heading": "Die richtige Oberfläche für dein Display",
+        "intro": "Beide Varianten schützen zuverlässig – der Unterschied liegt in der Optik.",
+        "padding-block-start": 80,
+        "padding-block-end": 80
+      },
+      "blocks": {
+        "item_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Klar",
+            "text": "<ul><li>Nahezu unsichtbar</li><li>Volle Farbbrillanz</li><li>Ideal für Displays ohne Sonneneinstrahlung</li></ul>"
+          }
+        },
+        "item_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "sun",
+            "badge": "Beliebt",
+            "highlight": true,
+            "title": "Matt",
+            "text": "<ul><li>Reduziert Spiegelungen deutlich</li><li>Weniger sichtbare Fingerabdrücke</li><li>Angenehm griffige Oberfläche</li></ul>"
+          }
+        },
+        "item_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "tool",
+            "title": "Montage-Set",
+            "text": "<ul><li>Folie plus Reinigungs- und Montagezubehör</li><li>Rakel für blasenfreies Andrücken</li><li>Empfohlen für die Erstmontage</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3"
+      ]
+    },
+    "installation": {
+      "type": "feature-cards",
+      "settings": {
+        "layout": "steps",
+        "tone": "default",
+        "eyebrow": "Montage",
+        "heading": "So bringst du die Folie an",
+        "intro": "In rund 10 Minuten erledigt – mit dem Montage-Set gelingt es auf Anhieb blasenfrei.",
+        "padding-block-start": 80,
+        "padding-block-end": 72
+      },
+      "blocks": {
+        "item_1": {
+          "type": "feature",
+          "settings": {
+            "title": "Display reinigen",
+            "text": "<p>Mit dem Nass- und dem Mikrofasertuch gründlich säubern, Staub mit dem Sticker abnehmen.</p>"
+          }
+        },
+        "item_2": {
+          "type": "feature",
+          "settings": {
+            "title": "Folie ausrichten",
+            "text": "<p>Schutzschicht abziehen, Folie an einer Kante ansetzen und exakt ausrichten.</p>"
+          }
+        },
+        "item_3": {
+          "type": "feature",
+          "settings": {
+            "title": "Andrücken",
+            "text": "<p>Mit der Rakel von der Mitte nach außen streichen. Kleine Bläschen verschwinden nach 24–48 h.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3"
+      ]
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "eyebrow": "FAQ",
+        "heading": "Häufige Fragen",
+        "intro": "<p>Deine Frage ist nicht dabei? <a href=\"/pages/kontakt\" title=\"Kontakt\">Schreib uns</a>.</p>",
+        "open_first": true,
+        "tone": "white",
+        "padding-block-start": 80,
+        "padding-block-end": 80
+      },
+      "blocks": {
+        "q_1": {
+          "type": "question",
+          "settings": {
+            "question": "Woher weiß ich, welches Display ich habe?",
+            "answer": "<p>In der Fahrzeugauswahl zeigen wir zu jeder Displayausführung einen Erkennungshinweis – z. B. Displaygröße, Form oder Position der Tasten. Im Zweifel schick uns einfach ein Foto.</p>"
+          }
+        },
+        "q_2": {
+          "type": "question",
+          "settings": {
+            "question": "Beeinträchtigt die Folie die Touch-Bedienung?",
+            "answer": "<p>Nein. Unsere Folien sind dünn und für kapazitive Touchscreens ausgelegt – Wischen, Tippen und Zoomen funktionieren wie gewohnt.</p>"
+          }
+        },
+        "q_3": {
+          "type": "question",
+          "settings": {
+            "question": "Wie lange dauert die Lieferung?",
+            "answer": "<p>Jede Folie wird nach deiner Bestellung zugeschnitten. Fertigung in 1–2 Werktagen, danach Versand mit DHL (2–3 Werktage innerhalb Deutschlands).</p>"
+          }
+        },
+        "q_4": {
+          "type": "question",
+          "settings": {
+            "question": "Kann ich die Folie rückstandslos entfernen?",
+            "answer": "<p>Ja. Die Folie lässt sich jederzeit ohne Rückstände abziehen.</p>"
+          }
+        },
+        "q_5": {
+          "type": "question",
+          "settings": {
+            "question": "Was ist, wenn die Folie nicht passt?",
+            "answer": "<p>Dann melde dich bei uns – wir finden eine Lösung, z. B. einen kostenlosen Ersatz.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q_1",
+        "q_2",
+        "q_3",
+        "q_4",
+        "q_5"
+      ]
     }
   },
   "order": [
     "main",
+    "usp_bar",
+    "clear_vs_matte",
+    "installation",
+    "faq",
     "product_recommendations_qggXJq"
   ]
 }

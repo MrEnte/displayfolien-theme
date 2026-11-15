@@ -1277,6 +1277,14 @@
       "content_set": "Contents: installation kit",
       "set_value": "Option value for the kit",
       "set_value_info": "When the selected variant has this option value, the kit text is shown."
+    },
+    "fit_badge": {
+      "name": "Fits your vehicle"
+    },
+    "trust": {
+      "name": "Trust box",
+      "items": "Items",
+      "items_info": "One item per line"
     }
   },
   "custom_sections": {
