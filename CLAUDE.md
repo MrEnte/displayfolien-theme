@@ -67,6 +67,11 @@ Diese BEISPIELDATEN-Displays stehen seit 15.11.2026 vorübergehend auf `passform
   Klar vs. Matt, Montage-Schritte, FAQ (Sections `feature-cards`/`faq`).
 - Design „technisch & premium“: Palette Navy `#0B1222`, Akzent Elektroblau `#2F6BFF`, Hellblau `#E8EEFF`,
   Überschriften Space Grotesk, Text Inter (in `config/settings_data.json`).
+- Logo: Wortmarke „Displayfolien.“ als `logo-displayfolien.png` (navy) und `logo-displayfolien-weiss.png` (für den
+  transparenten Header auf der Startseite) in den Shop-Dateien – Platzhalter, bis ein echtes Logo existiert.
+- `vehicle-quicklinks` (Kacheln „Beliebte Fahrzeuge“, eine pro Baureihe mit bestätigtem Display) verlinkt auf
+  `/?baureihe=<handle>#fahrzeugauswahl`; die Fahrzeugauswahl füllt damit Marke/Modell vor.
+- Range-Settings: max. 101 Schritte (z. B. 0–200 nur mit step 2), sonst lehnt Shopify das Schema ab.
 - Eigene Sections: `feature-cards` (Layouts Leiste/Karten/Schritte, Hintergrund Standard/Weiß/Hellblau/Dunkel,
   Icons in `snippets/feature-icon.liquid`) und `faq`. Section-Hintergründe brauchen die Spezifität
   `.shopify-section:not(.header-section) .section-background.<klasse>`, sonst überschreibt Horizon die Farbe.

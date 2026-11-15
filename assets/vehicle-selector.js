@@ -36,6 +36,7 @@ const STORAGE_KEY = 'displayfolien:fahrzeug';
  * @property {HTMLElement} message
  * @property {HTMLElement} summary
  * @property {HTMLElement} summaryText
+ * @property {HTMLAnchorElement} [summaryLink]
  * @property {HTMLElement} empty
  * @property {HTMLScriptElement} data
  * @property {HTMLScriptElement} strings
@@ -70,6 +71,7 @@ class VehicleSelectorComponent extends Component {
 
     this.#renderBrands();
     this.#restoreSavedVehicle();
+    this.#applyUrlPreset();
   }
 
   /* ----------------------------------------------------------------------- */
@@ -313,6 +315,38 @@ class VehicleSelectorComponent extends Component {
     }
   }
 
+  /**
+   * Vorauswahl über ?baureihe=<handle> (Kacheln aus sections/vehicle-quicklinks.liquid):
+   * Marke und Modell setzen, dann den Kunden das Baujahr wählen lassen.
+   */
+  #applyUrlPreset() {
+    const seriesId = new URLSearchParams(window.location.search).get('baureihe');
+    if (!seriesId) return;
+
+    const display = this.#displays.find((d) => d.series.id === seriesId);
+    if (!display) return;
+
+    this.refs.summary.hidden = true;
+    this.refs.form.hidden = false;
+
+    this.refs.brand.value = display.brand.id;
+    this.#renderModels();
+    this.refs.model.value = display.model.id;
+    this.#renderYears();
+    this.#resetFrom('display');
+    this.#update();
+
+    // Nur ein Baujahr in der Baureihe → direkt setzen, sonst Fokus auf das Baujahr-Feld
+    const to = display.series.to ?? new Date().getFullYear();
+    if (display.series.from === to) {
+      this.refs.year.value = String(to);
+      this.handleYearChange();
+    } else {
+      this.refs.year.focus({ preventScroll: true });
+    }
+    this.scrollIntoView({ block: 'start' });
+  }
+
   #restoreSavedVehicle() {
     /** @type {SavedVehicle | null} */
     let saved = null;
@@ -344,6 +378,13 @@ class VehicleSelectorComponent extends Component {
     this.#update();
 
     this.refs.summaryText.textContent = `${display.brand.name} ${display.model.name} (${saved.year}) – ${display.name}`;
+
+    // Direkter Weg zur passenden Folie, wenn es ein verknüpftes Produkt gibt
+    const summaryLink = this.refs.summaryLink;
+    if (summaryLink) {
+      summaryLink.hidden = !display.productUrl;
+      if (display.productUrl) summaryLink.href = display.productUrl;
+    }
     this.refs.summary.hidden = false;
     this.refs.form.hidden = true;
   }

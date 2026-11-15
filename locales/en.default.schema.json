@@ -1325,6 +1325,10 @@
       "block": "Question",
       "question": "Question",
       "answer": "Answer"
+    },
+    "quicklinks": {
+      "name": "Popular vehicles",
+      "limit": "Maximum number of tiles"
     }
   }
 }

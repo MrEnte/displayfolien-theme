@@ -9,8 +9,8 @@
  */
 {
   "current": {
-    "logo_height": 36,
-    "logo_height_mobile": 28,
+    "logo_height": 30,
+    "logo_height_mobile": 24,
     "type_body_font": "inter_n4",
     "type_subheading_font": "inter_n6",
     "type_heading_font": "space_grotesk_n7",
@@ -91,13 +91,15 @@
     "palette_secondary_button_border": "{{ settings.color_palette.color3 }}",
     "palette_input_background": "#FFFFFF",
     "palette_variant_background": "#FFFFFF",
-    "palette_selected_variant_background": "{{ settings.color_palette.foreground }}",
+    "palette_selected_variant_background": "{{ settings.color_palette.color1 }}",
     "palette_selected_variant_text": "#FFFFFF",
-    "palette_selected_variant_border": "{{ settings.color_palette.foreground }}",
+    "palette_selected_variant_border": "{{ settings.color_palette.color1 }}",
     "badge_sale_background_color": "{{ settings.color_palette.color1 }}",
     "badge_sale_text_color": "#FFFFFF",
     "type_case_h5": "uppercase",
-    "type_case_h6": "uppercase"
+    "type_case_h6": "uppercase",
+    "logo": "shopify://shop_images/logo-displayfolien.png",
+    "logo_inverse": "shopify://shop_images/logo-displayfolien-weiss.png"
   },
   "presets": {
     "Default": {

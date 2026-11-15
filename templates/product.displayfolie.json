@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -16,6 +25,7 @@
             "slideshow_mobile_controls_style": "dots",
             "thumbnail_position": "bottom",
             "thumbnail_width": 64,
+            "thumbnail_radius": 10,
             "aspect_ratio": "1",
             "constrain_to_viewport": true,
             "media_fit": "cover",
@@ -27,8 +37,7 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0,
-            "thumbnail_radius": 10
+            "padding-inline-end": 0
           },
           "blocks": {}
         },
@@ -68,7 +77,7 @@
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
                 "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
+                "gap": 8,
                 "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
@@ -125,13 +134,13 @@
                   "settings": {
                     "show_sale_price_first": true,
                     "show_installments": true,
-                    "show_tax_info": true,
-                    "type_preset": "paragraph",
+                    "show_tax_info": false,
+                    "type_preset": "custom",
                     "width": "100%",
                     "alignment": "left",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
+                    "font": "var(--font-heading--family)",
+                    "font_size": "2rem",
+                    "line_height": "tight",
                     "letter_spacing": "normal",
                     "case": "none",
                     "padding-block-start": 4,
@@ -140,11 +149,24 @@
                     "padding-inline-end": 0
                   },
                   "blocks": {}
+                },
+                "price_note": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>inkl. MwSt., zzgl. <a href=\"/policies/shipping-policy\" title=\"Versandkosten\">Versandkosten</a></p>",
+                    "width": "100%",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "0.875rem",
+                    "text_color": "#5B6475"
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
                 "text_xpVMaM",
-                "price_tVjtKg"
+                "price_tVjtKg",
+                "price_note"
               ]
             },
             "divider_VJhene": {
@@ -235,7 +257,22 @@
             },
             "accordion_infos": {
               "type": "accordion",
-              "settings": {},
+              "settings": {
+                "icon": "plus",
+                "dividers": true,
+                "divider_color": "#E3E8F0",
+                "type_preset": "h4",
+                "background_color": "#FFFFFF",
+                "border": "solid",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_color": "#E3E8F0",
+                "border_radius": 16,
+                "padding-block-start": 4,
+                "padding-block-end": 4,
+                "padding-inline-start": 20,
+                "padding-inline-end": 20
+              },
               "blocks": {
                 "row_kompatibilitaet": {
                   "type": "_accordion-row",
@@ -519,12 +556,6 @@
     },
     "usp_bar": {
       "type": "feature-cards",
-      "settings": {
-        "layout": "usp",
-        "tone": "white",
-        "padding-block-start": 28,
-        "padding-block-end": 28
-      },
       "blocks": {
         "item_1": {
           "type": "feature",
@@ -564,19 +595,16 @@
         "item_2",
         "item_3",
         "item_4"
-      ]
+      ],
+      "settings": {
+        "layout": "usp",
+        "tone": "white",
+        "padding-block-start": 28,
+        "padding-block-end": 28
+      }
     },
     "clear_vs_matte": {
       "type": "feature-cards",
-      "settings": {
-        "layout": "cards",
-        "tone": "dark",
-        "eyebrow": "Klar oder matt?",
-        "heading": "Die richtige Oberfläche für dein Display",
-        "intro": "Beide Varianten schützen zuverlässig – der Unterschied liegt in der Optik.",
-        "padding-block-start": 80,
-        "padding-block-end": 80
-      },
       "blocks": {
         "item_1": {
           "type": "feature",
@@ -591,9 +619,9 @@
           "settings": {
             "icon": "sun",
             "badge": "Beliebt",
-            "highlight": true,
             "title": "Matt",
-            "text": "<ul><li>Reduziert Spiegelungen deutlich</li><li>Weniger sichtbare Fingerabdrücke</li><li>Angenehm griffige Oberfläche</li></ul>"
+            "text": "<ul><li>Reduziert Spiegelungen deutlich</li><li>Weniger sichtbare Fingerabdrücke</li><li>Angenehm griffige Oberfläche</li></ul>",
+            "highlight": true
           }
         },
         "item_3": {
@@ -609,19 +637,19 @@
         "item_1",
         "item_2",
         "item_3"
-      ]
+      ],
+      "settings": {
+        "layout": "cards",
+        "tone": "dark",
+        "eyebrow": "Klar oder matt?",
+        "heading": "Die richtige Oberfläche für dein Display",
+        "intro": "Beide Varianten schützen zuverlässig – der Unterschied liegt in der Optik.",
+        "padding-block-start": 80,
+        "padding-block-end": 80
+      }
     },
     "installation": {
       "type": "feature-cards",
-      "settings": {
-        "layout": "steps",
-        "tone": "default",
-        "eyebrow": "Montage",
-        "heading": "So bringst du die Folie an",
-        "intro": "In rund 10 Minuten erledigt – mit dem Montage-Set gelingt es auf Anhieb blasenfrei.",
-        "padding-block-start": 80,
-        "padding-block-end": 72
-      },
       "blocks": {
         "item_1": {
           "type": "feature",
@@ -649,19 +677,19 @@
         "item_1",
         "item_2",
         "item_3"
-      ]
+      ],
+      "settings": {
+        "layout": "steps",
+        "tone": "default",
+        "eyebrow": "Montage",
+        "heading": "So bringst du die Folie an",
+        "intro": "In rund 10 Minuten erledigt – mit dem Montage-Set gelingt es auf Anhieb blasenfrei.",
+        "padding-block-start": 80,
+        "padding-block-end": 72
+      }
     },
     "faq": {
       "type": "faq",
-      "settings": {
-        "eyebrow": "FAQ",
-        "heading": "Häufige Fragen",
-        "intro": "<p>Deine Frage ist nicht dabei? <a href=\"/pages/kontakt\" title=\"Kontakt\">Schreib uns</a>.</p>",
-        "open_first": true,
-        "tone": "white",
-        "padding-block-start": 80,
-        "padding-block-end": 80
-      },
       "blocks": {
         "q_1": {
           "type": "question",
@@ -705,7 +733,16 @@
         "q_3",
         "q_4",
         "q_5"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "FAQ",
+        "heading": "Häufige Fragen",
+        "intro": "<p>Deine Frage ist nicht dabei? <a href=\"/pages/kontakt\" title=\"Kontakt\">Schreib uns</a>.</p>",
+        "open_first": true,
+        "tone": "white",
+        "padding-block-start": 80,
+        "padding-block-end": 80
+      }
     }
   },
   "order": [

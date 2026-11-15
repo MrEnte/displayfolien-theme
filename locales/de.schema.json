@@ -1218,6 +1218,10 @@
       "block": "Frage",
       "question": "Frage",
       "answer": "Antwort"
+    },
+    "quicklinks": {
+      "name": "Beliebte Fahrzeuge",
+      "limit": "Maximale Anzahl Kacheln"
     }
   }
 }

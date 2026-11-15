@@ -21,7 +21,7 @@
         "trust_points": "Passform geprüft\nBlasenfreie Montage\nVersand in 48 h",
         "show_visual": true,
         "contact_url": "shopify://pages/contact",
-        "padding-block-start": 72,
+        "padding-block-start": 120,
         "padding-block-end": 80
       }
     },
@@ -82,7 +82,7 @@
         "eyebrow": "So einfach geht's",
         "heading": "In drei Schritten zum perfekten Schutz",
         "intro": "Keine Zuschneiderei, kein Rätselraten: Du wählst dein Display, wir liefern die passende Folie.",
-        "padding-block-start": 80,
+        "padding-block-start": 56,
         "padding-block-end": 72
       },
       "blocks": {
@@ -214,11 +214,23 @@
         "q_4",
         "q_5"
       ]
+    },
+    "popular_vehicles": {
+      "type": "vehicle-quicklinks",
+      "settings": {
+        "eyebrow": "Schnellauswahl",
+        "heading": "Beliebte Fahrzeuge",
+        "intro": "Dein Modell ist dabei? Ein Klick, und wir füllen die Fahrzeugauswahl für dich vor.",
+        "limit": 8,
+        "padding-block-start": 72,
+        "padding-block-end": 24
+      }
     }
   },
   "order": [
     "vehicle_selector_myn7Tp",
     "usp_bar",
+    "popular_vehicles",
     "how_it_works",
     "clear_vs_matte",
     "faq"

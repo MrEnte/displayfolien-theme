@@ -27,6 +27,7 @@
   data-testid="vehicle-selector-{{ section.id }}"
 >
   <vehicle-selector-component
+    id="fahrzeugauswahl"
     class="vehicle-selector vehicle-selector--{{ style }}"
     data-contact-url="{{ contact_url }}"
   >
@@ -118,6 +119,13 @@
         >
           {{ 'vehicle_selector.change_vehicle' | t }}
         </button>
+        <a
+          class="button vehicle-selector__summary-cta"
+          ref="summaryLink"
+          hidden
+        >
+          {{- 'vehicle_selector.submit' | t -}}
+        </a>
       </div>
 
       <form
@@ -286,6 +294,42 @@
   .vehicle-selector--light {
     max-width: 64rem;
     margin-inline: auto;
+  }
+
+  /* Mobil/Tablet: Formular direkt unter die Überschrift, Untertitel und Vertrauenspunkte danach */
+  @media screen and (max-width: 989px) {
+    .vehicle-selector--hero {
+      gap: 0.875rem;
+    }
+
+    .vehicle-selector--hero .vehicle-selector__intro {
+      display: contents;
+    }
+
+    .vehicle-selector--hero .vehicle-selector__eyebrow {
+      order: 1;
+    }
+
+    .vehicle-selector--hero .vehicle-selector__heading {
+      order: 2;
+    }
+
+    .vehicle-selector--hero .vehicle-selector__panel {
+      order: 3;
+      margin-block: 0.75rem;
+    }
+
+    .vehicle-selector--hero .vehicle-selector__subheading {
+      order: 4;
+    }
+
+    .vehicle-selector--hero .vehicle-selector__trust {
+      order: 5;
+    }
+  }
+
+  #fahrzeugauswahl {
+    scroll-margin-top: 6rem;
   }
 
   /* Intro ------------------------------------------------------------- */
@@ -666,7 +710,20 @@
     margin: 0;
   }
 
+  .vehicle-selector__summary-cta {
+    flex-basis: 100%;
+    min-height: 54px;
+    font-weight: 600;
+  }
+
+  .vehicle-selector__summary-cta[hidden] {
+    display: none;
+  }
+
   .vehicle-selector__change {
+    background: none;
+    box-shadow: none;
+    padding: 0;
     min-height: 44px;
     font-weight: 600;
     color: var(--vs-accent);
@@ -763,8 +820,8 @@
       "id": "padding-block-start",
       "label": "t:settings.top",
       "min": 0,
-      "max": 100,
-      "step": 1,
+      "max": 200,
+      "step": 2,
       "unit": "px",
       "default": 72
     },

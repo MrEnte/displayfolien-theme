@@ -1,0 +1,292 @@
+{%- comment -%}
+  Kacheln „Beliebte Fahrzeuge“: eine Kachel pro Baureihe, die mindestens ein Display mit
+  passform_bestaetigt = true hat. Ein Klick öffnet die Startseite mit ?baureihe=<handle>;
+  assets/vehicle-selector.js füllt damit Marke und Modell vor.
+  Limits wie in snippets/vehicle-selector-data.liquid (max. 250 Displayausführungen, ?page=).
+{%- endcomment -%}
+
+{%- liquid
+  assign seen = ','
+  assign tile_count = 0
+-%}
+
+<div class="section-background vehicle-quicklinks-bg"></div>
+<div
+  class="section section--page-width spacing-style vehicle-quicklinks-section"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <div class="vehicle-quicklinks">
+    <div class="vehicle-quicklinks__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="vehicle-quicklinks__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="vehicle-quicklinks__heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.intro != blank -%}
+        <p class="vehicle-quicklinks__intro">{{ section.settings.intro | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    <ul
+      class="vehicle-quicklinks__list"
+      role="list"
+    >
+      {%- paginate metaobjects.display_ausfuehrung.values by 250 -%}
+        {%- for display in metaobjects.display_ausfuehrung.values -%}
+          {%- liquid
+            unless display.passform_bestaetigt.value == true
+              continue
+            endunless
+            if tile_count >= section.settings.limit
+              break
+            endif
+
+            assign series = display.baureihe.value
+            assign model = series.modell.value
+            assign brand = model.marke.value
+            if series == blank or model == blank or brand == blank
+              continue
+            endif
+
+            assign key = ',' | append: series.system.handle | append: ','
+            if seen contains key
+              continue
+            endif
+            assign seen = seen | append: series.system.handle | append: ','
+            assign tile_count = tile_count | plus: 1
+
+            assign year_to = series.baujahr_bis.value
+            if year_to == blank
+              assign year_to = 'product_fit.until_today' | t
+            endif
+            assign tile_url = routes.root_url | append: '?baureihe=' | append: series.system.handle | append: '#fahrzeugauswahl' | replace: '//', '/'
+          -%}
+          <li>
+            <a
+              class="vehicle-quicklinks__tile"
+              href="{{ tile_url }}"
+            >
+              <span class="vehicle-quicklinks__brand">{{ brand.name.value }}</span>
+              <span class="vehicle-quicklinks__model">{{ model.name.value }}</span>
+              <span class="vehicle-quicklinks__series">
+                {{- series.name.value }} · {{ series.baujahr_von.value }}–{{ year_to -}}
+              </span>
+              <span
+                class="vehicle-quicklinks__arrow"
+                aria-hidden="true"
+              >
+                <svg
+                  viewBox="0 0 16 16"
+                  width="16"
+                  height="16"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M3 8h10M9 4l4 4-4 4" />
+                </svg>
+              </span>
+            </a>
+          </li>
+        {%- endfor -%}
+      {%- endpaginate -%}
+    </ul>
+  </div>
+</div>
+
+{% stylesheet %}
+  .vehicle-quicklinks-section {
+    position: relative;
+  }
+
+  .vehicle-quicklinks {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+    width: 100%;
+  }
+
+  .vehicle-quicklinks__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 40rem;
+  }
+
+  .vehicle-quicklinks__eyebrow {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-primary-button-background, #2f6bff);
+  }
+
+  .vehicle-quicklinks__heading {
+    margin: 0;
+    font-family: var(--font-heading--family);
+    font-weight: var(--font-heading--weight);
+    font-size: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .vehicle-quicklinks__intro {
+    margin: 0;
+    font-size: 1.0625rem;
+    color: rgb(var(--color-foreground-rgb) / 0.72);
+  }
+
+  .vehicle-quicklinks__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .vehicle-quicklinks__tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    height: 100%;
+    padding: 1.25rem 3.25rem 1.25rem 1.25rem;
+    border-radius: 16px;
+    background: #fff;
+    border: 1px solid rgb(11 18 34 / 0.08);
+    color: #0b1222;
+    text-decoration: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .vehicle-quicklinks__tile:hover {
+    border-color: rgb(47 107 255 / 0.5);
+    box-shadow: 0 14px 34px rgb(11 18 34 / 0.08);
+    transform: translateY(-2px);
+  }
+
+  .vehicle-quicklinks__tile:focus-visible {
+    outline: 3px solid rgb(47 107 255 / 0.4);
+    outline-offset: 2px;
+  }
+
+  .vehicle-quicklinks__brand {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #2f6bff;
+  }
+
+  .vehicle-quicklinks__model {
+    font-family: var(--font-heading--family);
+    font-weight: var(--font-heading--weight);
+    font-size: 1.375rem;
+    letter-spacing: -0.01em;
+  }
+
+  .vehicle-quicklinks__series {
+    font-size: 0.875rem;
+    color: rgb(11 18 34 / 0.65);
+  }
+
+  .vehicle-quicklinks__arrow {
+    position: absolute;
+    top: 50%;
+    right: 1.25rem;
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: rgb(47 107 255 / 0.1);
+    color: #2f6bff;
+    transform: translateY(-50%);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .vehicle-quicklinks__tile:hover .vehicle-quicklinks__arrow {
+    background: #2f6bff;
+    color: #fff;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .vehicle-quicklinks__tile {
+      transition: none;
+    }
+
+    .vehicle-quicklinks__tile:hover {
+      transform: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:custom_sections.quicklinks.name",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:custom_sections.eyebrow"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:custom_sections.heading"
+    },
+    {
+      "type": "text",
+      "id": "intro",
+      "label": "t:custom_sections.intro"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "t:custom_sections.quicklinks.limit",
+      "min": 2,
+      "max": 24,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 72
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:custom_sections.quicklinks.name",
+      "category": "t:categories.forms"
+    }
+  ]
+}
+{% endschema %}
