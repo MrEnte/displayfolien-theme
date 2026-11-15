@@ -4,9 +4,14 @@
     assign contact_url = routes.root_url | append: '/pages/kontakt' | replace: '//', '/'
   endif
 
-  if section.settings.background_color != blank
+  assign style = section.settings.style
+  if style == 'light' and section.settings.background_color != blank
     render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
+    assign custom_color_class = ' color-custom-' | append: section.id
   endif
+
+  assign heading_tag = section.settings.heading_tag | default: 'h2'
+  assign trust_points = section.settings.trust_points | newline_to_br | split: '<br />'
 -%}
 
 <script
@@ -15,149 +20,210 @@
   fetchpriority="low"
 ></script>
 
+<div class="section-background vehicle-selector-bg vehicle-selector-bg--{{ style }}{{ custom_color_class }}"></div>
 <div
-  class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
-></div>
-<div
-  class="section section--{{ section.settings.section_width }}{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %} spacing-style"
+  class="section section--page-width spacing-style vehicle-selector-section vehicle-selector-section--{{ style }}{{ custom_color_class }}"
   style="{% render 'spacing-style', settings: section.settings %}"
   data-testid="vehicle-selector-{{ section.id }}"
 >
   <vehicle-selector-component
-    class="vehicle-selector"
+    class="vehicle-selector vehicle-selector--{{ style }}"
     data-contact-url="{{ contact_url }}"
   >
-    {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
-      <div class="vehicle-selector__header">
-        {%- if section.settings.heading != blank -%}
-          <h2 class="vehicle-selector__heading h3">{{ section.settings.heading | escape }}</h2>
-        {%- endif -%}
-        {%- if section.settings.subheading != blank -%}
-          <p class="vehicle-selector__subheading">{{ section.settings.subheading | escape }}</p>
-        {%- endif -%}
-      </div>
-    {%- endif -%}
+    <div class="vehicle-selector__intro">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="vehicle-selector__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <{{ heading_tag }} class="vehicle-selector__heading">{{ section.settings.heading | escape }}</{{ heading_tag }}>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="vehicle-selector__subheading">{{ section.settings.subheading | escape }}</p>
+      {%- endif -%}
 
-    <p
-      class="vehicle-selector__empty"
-      ref="empty"
-      hidden
-    >
-      {{ 'vehicle_selector.empty' | t }}
-    </p>
+      {%- if section.settings.trust_points != blank -%}
+        <ul
+          class="vehicle-selector__trust"
+          role="list"
+        >
+          {%- for point in trust_points -%}
+            {%- assign point_text = point | strip -%}
+            {%- if point_text != blank -%}
+              <li class="vehicle-selector__trust-item">
+                <span
+                  class="vehicle-selector__trust-icon"
+                  aria-hidden="true"
+                >
+                  <svg
+                    viewBox="0 0 16 16"
+                    width="12"
+                    height="12"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M3 8.5l3 3 7-7" />
+                  </svg>
+                </span>
+                {{ point_text | escape }}
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
 
-    <div
-      class="vehicle-selector__summary"
-      ref="summary"
-      hidden
-    >
-      <p class="vehicle-selector__summary-text">
-        {{ 'vehicle_selector.your_vehicle' | t }}
-        <strong ref="summaryText"></strong>
-      </p>
-      <button
-        type="button"
-        class="button-unstyled vehicle-selector__change"
-        on:click="/editVehicle"
-      >
-        {{ 'vehicle_selector.change_vehicle' | t }}
-      </button>
+      {%- if section.settings.show_visual -%}
+        <div
+          class="vehicle-selector__visual"
+          aria-hidden="true"
+        >
+          <div class="vs-screen">
+            <div class="vs-screen__half vs-screen__half--clear">
+              <span class="vs-screen__label">{{ 'vehicle_selector.visual_clear' | t }}</span>
+            </div>
+            <div class="vs-screen__half vs-screen__half--matte">
+              <span class="vs-screen__label">{{ 'vehicle_selector.visual_matte' | t }}</span>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
     </div>
 
-    <form
-      class="vehicle-selector__form"
-      ref="form"
-      on:submit="/handleSubmit"
-      novalidate
-    >
-      <div class="vehicle-selector__fields">
-        <div class="vehicle-selector__field">
-          <label
-            class="vehicle-selector__label"
-            for="VehicleSelectorBrand-{{ section.id }}"
-          >
-            {{- 'vehicle_selector.brand' | t -}}
-          </label>
-          <select
-            id="VehicleSelectorBrand-{{ section.id }}"
-            class="field__input vehicle-selector__select"
-            name="brand"
-            ref="brand"
-            on:change="/handleBrandChange"
-          >
-            <option value="">{{ 'vehicle_selector.choose_brand' | t }}</option>
-          </select>
-        </div>
+    <div class="vehicle-selector__panel">
+      <p class="vehicle-selector__panel-title">{{ 'vehicle_selector.panel_title' | t }}</p>
 
-        <div class="vehicle-selector__field">
-          <label
-            class="vehicle-selector__label"
-            for="VehicleSelectorModel-{{ section.id }}"
-          >
-            {{- 'vehicle_selector.model' | t -}}
-          </label>
-          <select
-            id="VehicleSelectorModel-{{ section.id }}"
-            class="field__input vehicle-selector__select"
-            name="model"
-            ref="model"
-            on:change="/handleModelChange"
-            disabled
-          >
-            <option value="">{{ 'vehicle_selector.choose_model' | t }}</option>
-          </select>
-        </div>
-
-        <div class="vehicle-selector__field">
-          <label
-            class="vehicle-selector__label"
-            for="VehicleSelectorYear-{{ section.id }}"
-          >
-            {{- 'vehicle_selector.year' | t -}}
-          </label>
-          <select
-            id="VehicleSelectorYear-{{ section.id }}"
-            class="field__input vehicle-selector__select"
-            name="year"
-            ref="year"
-            on:change="/handleYearChange"
-            disabled
-          >
-            <option value="">{{ 'vehicle_selector.choose_year' | t }}</option>
-          </select>
-        </div>
-      </div>
-
-      <fieldset
-        class="vehicle-selector__displays"
-        ref="displayFieldset"
+      <p
+        class="vehicle-selector__empty"
+        ref="empty"
         hidden
       >
-        <legend class="vehicle-selector__label">{{ 'vehicle_selector.display' | t }}</legend>
-        <p class="vehicle-selector__help">{{ 'vehicle_selector.display_help' | t }}</p>
-        <div
-          class="vehicle-selector__display-list"
-          ref="displayList"
-          on:change="/handleDisplayChange"
-        ></div>
-      </fieldset>
-
-      <button
-        type="submit"
-        class="button vehicle-selector__submit"
-        ref="submit"
-        disabled
-      >
-        {{ 'vehicle_selector.submit' | t }}
-      </button>
+        {{ 'vehicle_selector.empty' | t }}
+      </p>
 
       <div
-        class="vehicle-selector__message"
-        ref="message"
-        role="status"
-        aria-live="polite"
-      ></div>
-    </form>
+        class="vehicle-selector__summary"
+        ref="summary"
+        hidden
+      >
+        <p class="vehicle-selector__summary-text">
+          {{ 'vehicle_selector.your_vehicle' | t }}
+          <strong ref="summaryText"></strong>
+        </p>
+        <button
+          type="button"
+          class="button-unstyled vehicle-selector__change"
+          on:click="/editVehicle"
+        >
+          {{ 'vehicle_selector.change_vehicle' | t }}
+        </button>
+      </div>
+
+      <form
+        class="vehicle-selector__form"
+        ref="form"
+        on:submit="/handleSubmit"
+        novalidate
+      >
+        <div class="vehicle-selector__fields">
+          <div class="vehicle-selector__field">
+            <label
+              class="vehicle-selector__label"
+              for="VehicleSelectorBrand-{{ section.id }}"
+            >
+              <span class="vehicle-selector__step">1</span>
+              {{- 'vehicle_selector.brand' | t -}}
+            </label>
+            <select
+              id="VehicleSelectorBrand-{{ section.id }}"
+              class="field__input vehicle-selector__select"
+              name="brand"
+              required
+              ref="brand"
+              on:change="/handleBrandChange"
+            >
+              <option value="">{{ 'vehicle_selector.choose_brand' | t }}</option>
+            </select>
+          </div>
+
+          <div class="vehicle-selector__field">
+            <label
+              class="vehicle-selector__label"
+              for="VehicleSelectorModel-{{ section.id }}"
+            >
+              <span class="vehicle-selector__step">2</span>
+              {{- 'vehicle_selector.model' | t -}}
+            </label>
+            <select
+              id="VehicleSelectorModel-{{ section.id }}"
+              class="field__input vehicle-selector__select"
+              name="model"
+              required
+              ref="model"
+              on:change="/handleModelChange"
+              disabled
+            >
+              <option value="">{{ 'vehicle_selector.choose_model' | t }}</option>
+            </select>
+          </div>
+
+          <div class="vehicle-selector__field">
+            <label
+              class="vehicle-selector__label"
+              for="VehicleSelectorYear-{{ section.id }}"
+            >
+              <span class="vehicle-selector__step">3</span>
+              {{- 'vehicle_selector.year' | t -}}
+            </label>
+            <select
+              id="VehicleSelectorYear-{{ section.id }}"
+              class="field__input vehicle-selector__select"
+              name="year"
+              required
+              ref="year"
+              on:change="/handleYearChange"
+              disabled
+            >
+              <option value="">{{ 'vehicle_selector.choose_year' | t }}</option>
+            </select>
+          </div>
+        </div>
+
+        <fieldset
+          class="vehicle-selector__displays"
+          ref="displayFieldset"
+          hidden
+        >
+          <legend class="vehicle-selector__label">
+            <span class="vehicle-selector__step">4</span>
+            {{- 'vehicle_selector.display' | t -}}
+          </legend>
+          <p class="vehicle-selector__help">{{ 'vehicle_selector.display_help' | t }}</p>
+          <div
+            class="vehicle-selector__display-list"
+            ref="displayList"
+            on:change="/handleDisplayChange"
+          ></div>
+        </fieldset>
+
+        <button
+          type="submit"
+          class="button vehicle-selector__submit"
+          ref="submit"
+          disabled
+        >
+          {{ 'vehicle_selector.submit' | t }}
+        </button>
+
+        <div
+          class="vehicle-selector__message"
+          ref="message"
+          role="status"
+          aria-live="polite"
+        ></div>
+      </form>
+    </div>
 
     <script type="application/json" ref="strings">
       {
@@ -175,30 +241,207 @@
 </div>
 
 {% stylesheet %}
+  /* ------------------------------------------------------------------ */
+  /* Fahrzeugauswahl                                                     */
+  /* ------------------------------------------------------------------ */
+  .vehicle-selector-section {
+    --vs-ink: #0b1222;
+    --vs-ink-rgb: 11 18 34;
+    --vs-accent: var(--color-primary-button-background, #2f6bff);
+    --vs-line: rgb(var(--vs-ink-rgb) / 0.14);
+    --vs-radius: 20px;
+    position: relative;
+  }
+
+  /* Hintergrund Hero: tiefes Navy, blaues Leuchten, feines Raster */
+  /* Spezifität wie Horizons .section-background-Regel, sonst gewinnt deren background-color */
+  .shopify-section:not(.header-section) .section-background.vehicle-selector-bg--hero {
+    background-color: #0b1222;
+    background-image: radial-gradient(900px 520px at 88% 8%, rgb(47 107 255 / 0.38), transparent 62%),
+      radial-gradient(700px 420px at 0% 100%, rgb(47 107 255 / 0.18), transparent 60%),
+      linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+    background-size: auto, auto, 48px 48px, 48px 48px;
+  }
+
+  .vehicle-selector-section--hero {
+    color: #fff;
+  }
+
   .vehicle-selector {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-lg, 1rem);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
     width: 100%;
+  }
+
+  @media screen and (min-width: 990px) {
+    .vehicle-selector--hero {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 4rem;
+    }
+  }
+
+  .vehicle-selector--light {
     max-width: 64rem;
     margin-inline: auto;
   }
 
-  .vehicle-selector__header {
+  /* Intro ------------------------------------------------------------- */
+  .vehicle-selector__intro {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-xs, 0.25rem);
+    gap: 1rem;
   }
 
-  .vehicle-selector__heading,
+  .vehicle-selector__eyebrow {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--vs-accent);
+  }
+
+  .vehicle-selector--hero .vehicle-selector__eyebrow {
+    color: #8fb0ff;
+  }
+
+  .vehicle-selector__heading {
+    margin: 0;
+    font-family: var(--font-heading--family);
+    font-weight: var(--font-heading--weight);
+    font-size: clamp(2rem, 1.2rem + 3.6vw, 3.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    color: inherit;
+  }
+
   .vehicle-selector__subheading {
     margin: 0;
+    max-width: 34rem;
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    opacity: 0.82;
+  }
+
+  .vehicle-selector__trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin: 0.25rem 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+
+  .vehicle-selector__trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .vehicle-selector__trust-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background: var(--vs-accent);
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  /* Display-Visual: links glänzend (klar), rechts entspiegelt (matt) ---- */
+  .vehicle-selector__visual {
+    display: none;
+    margin-top: 1.5rem;
+  }
+
+  @media screen and (min-width: 990px) {
+    .vehicle-selector__visual {
+      display: block;
+    }
+  }
+
+  .vs-screen {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    aspect-ratio: 16 / 6.5;
+    max-width: 30rem;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 6px solid #1a2438;
+    box-shadow: 0 30px 60px rgb(0 0 0 / 0.45), inset 0 0 0 1px rgb(255 255 255 / 0.06);
+    background: linear-gradient(135deg, #1d3a8a 0%, #2f6bff 45%, #0f1c3f 100%);
+  }
+
+  .vs-screen__half {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 0.75rem;
+  }
+
+  .vs-screen__half--clear::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 30%, rgb(255 255 255 / 0.42) 46%, transparent 58%);
+  }
+
+  .vs-screen__half--matte {
+    backdrop-filter: blur(3px) saturate(0.8);
+    background: rgb(255 255 255 / 0.1);
+    border-inline-start: 1px dashed rgb(255 255 255 / 0.5);
+  }
+
+  .vs-screen__label {
+    position: relative;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: rgb(11 18 34 / 0.65);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  /* Panel / Karte ----------------------------------------------------- */
+  .vehicle-selector__panel {
+    --color-foreground: var(--vs-ink);
+    --color-foreground-rgb: var(--vs-ink-rgb);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: clamp(1.25rem, 0.8rem + 2vw, 2rem);
+    border-radius: var(--vs-radius);
+    background: #fff;
+    color: var(--vs-ink);
+    box-shadow: 0 1px 2px rgb(var(--vs-ink-rgb) / 0.06), 0 12px 32px rgb(var(--vs-ink-rgb) / 0.08);
+  }
+
+  .vehicle-selector--hero .vehicle-selector__panel {
+    box-shadow: 0 30px 80px rgb(0 0 0 / 0.4), 0 0 0 1px rgb(255 255 255 / 0.08);
+  }
+
+  .vehicle-selector__panel-title {
+    margin: 0;
+    font-family: var(--font-heading--family);
+    font-weight: var(--font-heading--weight);
+    font-size: 1.25rem;
+    letter-spacing: -0.01em;
   }
 
   .vehicle-selector__form {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-lg, 1rem);
+    gap: 1.25rem;
   }
 
   .vehicle-selector__form[hidden],
@@ -208,15 +451,14 @@
     display: none;
   }
 
-  /* Mobil: Felder untereinander, ab Tablet nebeneinander */
   .vehicle-selector__fields {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--gap-md, 0.75rem);
+    gap: 1rem;
   }
 
   @media screen and (min-width: 750px) {
-    .vehicle-selector__fields {
+    .vehicle-selector--light .vehicle-selector__fields {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
@@ -224,53 +466,92 @@
   .vehicle-selector__field {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-2xs, 0.25rem);
+    gap: 0.4rem;
   }
 
   .vehicle-selector__label {
-    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     padding: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .vehicle-selector__step {
+    display: inline-grid;
+    place-items: center;
+    width: 1.375rem;
+    height: 1.375rem;
+    border-radius: 50%;
+    background: rgb(var(--vs-ink-rgb) / 0.07);
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .vehicle-selector__field:has(select:not(:disabled):valid) .vehicle-selector__step,
+  .vehicle-selector__displays:has(input:checked) .vehicle-selector__step {
+    background: var(--vs-accent);
+    color: #fff;
   }
 
   .vehicle-selector__select {
     width: 100%;
-    min-height: 44px;
+    min-height: 52px;
+    padding-inline-end: 2.75rem;
+    border: 1px solid var(--vs-line);
+    box-shadow: none;
+    background-color: #fff;
+    color: var(--vs-ink);
+    font-size: 1rem;
     cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%230b1222' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 16px;
+    transition: border-color var(--animation-speed, 0.2s) ease, box-shadow var(--animation-speed, 0.2s) ease;
+  }
+
+  .vehicle-selector__select:hover:not(:disabled) {
+    border-color: rgb(var(--vs-ink-rgb) / 0.35);
+  }
+
+  .vehicle-selector__select:focus-visible {
+    outline: none;
+    border-color: var(--vs-accent);
+    box-shadow: 0 0 0 3px rgb(47 107 255 / 0.25);
   }
 
   .vehicle-selector__select:disabled {
     cursor: not-allowed;
-    opacity: 0.5;
-  }
-
-  .vehicle-selector__select:focus-visible,
-  .vehicle-selector__option:has(input:focus-visible) {
-    outline: var(--focus-outline-width, 2px) solid currentcolor;
-    outline-offset: var(--focus-outline-offset, 2px);
+    background-color: rgb(var(--vs-ink-rgb) / 0.03);
+    color: rgb(var(--vs-ink-rgb) / 0.45);
   }
 
   .vehicle-selector__displays {
-    border: 0;
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--gap-sm, 0.5rem);
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
   }
 
   .vehicle-selector__help {
     margin: 0;
-    opacity: 0.8;
+    font-size: 0.875rem;
+    color: rgb(var(--vs-ink-rgb) / 0.65);
   }
 
   .vehicle-selector__display-list {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--gap-md, 0.75rem);
+    gap: 0.75rem;
   }
 
   @media screen and (min-width: 750px) {
-    .vehicle-selector__display-list {
+    .vehicle-selector--light .vehicle-selector__display-list {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
@@ -278,52 +559,78 @@
   .vehicle-selector__option {
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: var(--gap-sm, 0.5rem);
+    gap: 0.75rem;
     align-items: start;
-    padding: var(--padding-md, 0.75rem);
-    border: 1px solid rgb(var(--color-foreground-rgb) / var(--opacity-20, 0.2));
-    border-radius: var(--style-border-radius-inputs, 4px);
+    padding: 1rem;
+    border: 1px solid var(--vs-line);
+    border-radius: 14px;
     cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .vehicle-selector__option:hover {
+    border-color: rgb(var(--vs-ink-rgb) / 0.35);
   }
 
   .vehicle-selector__option:has(input:checked) {
-    border-color: currentcolor;
-    box-shadow: 0 0 0 1px currentcolor;
+    border-color: var(--vs-accent);
+    background: rgb(47 107 255 / 0.06);
+    box-shadow: 0 0 0 1px var(--vs-accent);
+  }
+
+  .vehicle-selector__option:has(input:focus-visible) {
+    outline: 3px solid rgb(47 107 255 / 0.35);
+    outline-offset: 2px;
   }
 
   .vehicle-selector__option input {
-    margin-block-start: 0.25em;
-    accent-color: currentcolor;
+    width: 1.125rem;
+    height: 1.125rem;
+    margin-block-start: 0.15em;
+    accent-color: var(--vs-accent);
   }
 
   .vehicle-selector__option-body {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-xs, 0.25rem);
+    gap: 0.35rem;
   }
 
   .vehicle-selector__option-hint {
     margin: 0;
     white-space: pre-line;
-    font-size: 0.9em;
-    opacity: 0.85;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: rgb(var(--vs-ink-rgb) / 0.7);
   }
 
   .vehicle-selector__option-image {
     width: 100%;
     max-width: 240px;
     height: auto;
-    border-radius: var(--style-border-radius-inputs, 4px);
+    border-radius: 10px;
   }
 
   .vehicle-selector__submit {
+    width: 100%;
+    min-height: 54px;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .vehicle-selector__submit:disabled {
+    opacity: 0.45;
+  }
+
+  .vehicle-selector--light .vehicle-selector__submit {
+    width: auto;
     align-self: flex-start;
-    min-height: 44px;
+    padding-inline: 2rem;
   }
 
   @media screen and (max-width: 749px) {
-    .vehicle-selector__submit {
-      align-self: stretch;
+    .vehicle-selector--light .vehicle-selector__submit {
+      width: 100%;
     }
   }
 
@@ -331,11 +638,28 @@
     display: none;
   }
 
+  .vehicle-selector__message p {
+    margin: 0;
+    padding: 0.875rem 1rem;
+    border-radius: 12px;
+    background: rgb(47 107 255 / 0.08);
+    font-size: 0.9375rem;
+  }
+
+  .vehicle-selector__message a {
+    color: var(--vs-accent);
+    font-weight: 600;
+  }
+
   .vehicle-selector__summary {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--gap-sm, 0.5rem) var(--gap-md, 0.75rem);
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    padding: 1rem;
+    border-radius: 14px;
+    background: rgb(47 107 255 / 0.06);
   }
 
   .vehicle-selector__summary-text {
@@ -343,8 +667,11 @@
   }
 
   .vehicle-selector__change {
-    text-decoration: underline;
     min-height: 44px;
+    font-weight: 600;
+    color: var(--vs-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 {% endstylesheet %}
 
@@ -356,14 +683,63 @@
   },
   "settings": [
     {
+      "type": "select",
+      "id": "style",
+      "label": "t:vehicle_selector.settings.style",
+      "options": [
+        {
+          "value": "hero",
+          "label": "t:vehicle_selector.settings.style_hero"
+        },
+        {
+          "value": "light",
+          "label": "t:vehicle_selector.settings.style_light"
+        }
+      ],
+      "default": "hero"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:vehicle_selector.settings.eyebrow"
+    },
+    {
       "type": "text",
       "id": "heading",
       "label": "t:vehicle_selector.settings.heading"
     },
     {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:vehicle_selector.settings.heading_tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        }
+      ],
+      "default": "h2"
+    },
+    {
       "type": "text",
       "id": "subheading",
       "label": "t:vehicle_selector.settings.subheading"
+    },
+    {
+      "type": "textarea",
+      "id": "trust_points",
+      "label": "t:vehicle_selector.settings.trust_points",
+      "info": "t:vehicle_selector.settings.trust_points_info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_visual",
+      "label": "t:vehicle_selector.settings.show_visual",
+      "default": true
     },
     {
       "type": "url",
@@ -372,30 +748,11 @@
       "info": "t:vehicle_selector.settings.contact_url_info"
     },
     {
-      "type": "header",
-      "content": "t:content.layout"
-    },
-    {
-      "type": "select",
-      "id": "section_width",
-      "label": "t:settings.width",
-      "options": [
-        {
-          "value": "page-width",
-          "label": "t:options.page"
-        },
-        {
-          "value": "full-width",
-          "label": "t:options.full"
-        }
-      ],
-      "default": "page-width"
-    },
-    {
       "type": "color",
       "id": "background_color",
       "label": "t:settings.background_color",
-      "placeholder": "t:settings.default"
+      "placeholder": "t:settings.default",
+      "visible_if": "{{ section.settings.style == 'light' }}"
     },
     {
       "type": "header",
@@ -409,7 +766,7 @@
       "max": 100,
       "step": 1,
       "unit": "px",
-      "default": 40
+      "default": 72
     },
     {
       "type": "range",
@@ -419,7 +776,7 @@
       "max": 100,
       "step": 1,
       "unit": "px",
-      "default": 40
+      "default": 72
     }
   ],
   "presets": [
@@ -427,8 +784,12 @@
       "name": "t:vehicle_selector.name",
       "category": "t:categories.forms",
       "settings": {
+        "style": "hero",
+        "heading_tag": "h1",
+        "eyebrow": "t:vehicle_selector.defaults.eyebrow",
         "heading": "t:vehicle_selector.defaults.heading",
-        "subheading": "t:vehicle_selector.defaults.subheading"
+        "subheading": "t:vehicle_selector.defaults.subheading",
+        "trust_points": "t:vehicle_selector.defaults.trust_points"
       }
     }
   ]

@@ -1141,11 +1141,21 @@
       "heading": "Überschrift",
       "subheading": "Untertitel",
       "contact_url": "Kontaktseite",
-      "contact_url_info": "Wird verlinkt, wenn es für das gewählte Display noch keine Folie gibt. Standard: /pages/kontakt"
+      "contact_url_info": "Wird verlinkt, wenn es für das gewählte Display noch keine Folie gibt. Standard: /pages/kontakt",
+      "style": "Stil",
+      "style_hero": "Hero (dunkel)",
+      "style_light": "Hell",
+      "eyebrow": "Dachzeile",
+      "heading_tag": "Überschrift-Ebene",
+      "trust_points": "Vertrauenspunkte",
+      "trust_points_info": "Ein Punkt pro Zeile",
+      "show_visual": "Display-Grafik (klar/matt) anzeigen"
     },
     "defaults": {
-      "heading": "Finde die passende Displayschutzfolie",
-      "subheading": "Wähle dein Fahrzeug und dein Display – wir zeigen dir die passgenaue Folie."
+      "heading": "Schütze dein Infotainment-Display – millimetergenau.",
+      "subheading": "Wähle dein Fahrzeug und dein Display. Wir zeigen dir die Folie, die exakt passt – klar oder matt, einzeln oder als Montage-Set.",
+      "eyebrow": "Passgenaue Displayschutzfolien",
+      "trust_points": "Passform geprüft\nBlasenfreie Montage\nVersand in 48 h"
     }
   },
   "product_fit": {
@@ -1160,6 +1170,46 @@
       "content_set": "Lieferumfang: Montage-Set",
       "set_value": "Optionswert für das Set",
       "set_value_info": "Hat die gewählte Variante diesen Optionswert, wird der Set-Text angezeigt."
+    }
+  },
+  "custom_sections": {
+    "eyebrow": "Dachzeile",
+    "heading": "Überschrift",
+    "intro": "Einleitung",
+    "feature_cards": {
+      "name": "Vorteile & Schritte",
+      "layout": "Layout",
+      "layout_usp": "Leiste (kompakt)",
+      "layout_cards": "Karten",
+      "layout_steps": "Nummerierte Schritte",
+      "tone": "Hintergrund",
+      "tone_default": "Standard",
+      "tone_white": "Weiß",
+      "tone_tint": "Hellblau",
+      "tone_dark": "Dunkel",
+      "block": "Eintrag",
+      "icon": "Icon",
+      "badge": "Badge",
+      "title": "Titel",
+      "text": "Text",
+      "highlight": "Hervorheben"
+    },
+    "icons": {
+      "target": "Passgenau (Ziel)",
+      "sparkle": "Brillanz",
+      "truck": "Versand",
+      "shield": "Schutz",
+      "car": "Fahrzeug",
+      "sun": "Sonne/Spiegelung",
+      "tool": "Montage",
+      "return": "Rückgabe"
+    },
+    "faq": {
+      "name": "Häufige Fragen",
+      "open_first": "Erste Frage geöffnet",
+      "block": "Frage",
+      "question": "Frage",
+      "answer": "Antwort"
     }
   }
 }

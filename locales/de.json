@@ -386,7 +386,10 @@
     "no_display_for_year": "Für dieses Baujahr haben wir noch kein bestätigtes Display.",
     "submit": "Passende Folie anzeigen",
     "no_product": "Für dieses Display haben wir noch keine Folie –",
-    "contact_link": "frag uns an"
+    "contact_link": "frag uns an",
+    "panel_title": "Dein Fahrzeug",
+    "visual_clear": "Klar",
+    "visual_matte": "Matt"
   },
   "product_fit": {
     "until_today": "heute",

@@ -37,15 +37,14 @@
           assign brand = model.marke.value
         -%}
         <li class="product-compatibility__item">
+          {%- liquid
+            assign year_to = series.baujahr_bis.value
+            if year_to == blank
+              assign year_to = 'product_fit.until_today' | t
+            endif
+          -%}
           <span class="product-compatibility__vehicle">
-            {{- brand.name.value }}
-            {{ model.name.value }} – {{ series.name.value }} ({{ series.baujahr_von.value }}–
-            {%- if series.baujahr_bis.value != blank -%}
-              {{ series.baujahr_bis.value }}
-            {%- else -%}
-              {{ 'product_fit.until_today' | t }}
-            {%- endif -%}
-            )
+            {{- brand.name.value }} {{ model.name.value }} – {{ series.name.value }} ({{ series.baujahr_von.value }}–{{ year_to }})
           </span>
           <span class="product-compatibility__display">
             {{- 'product_fit.display' | t }}: {{ display.name.value -}}

@@ -416,7 +416,10 @@
     "no_display_for_year": "We don't have a confirmed display for this year yet.",
     "submit": "Show matching film",
     "no_product": "We don't have a film for this display yet –",
-    "contact_link": "ask us"
+    "contact_link": "ask us",
+    "panel_title": "Your vehicle",
+    "visual_clear": "Clear",
+    "visual_matte": "Matte"
   },
   "product_fit": {
     "until_today": "today",

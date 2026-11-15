@@ -1248,11 +1248,21 @@
       "heading": "Heading",
       "subheading": "Subheading",
       "contact_url": "Contact page",
-      "contact_url_info": "Linked when no film exists for the selected display. Default: /pages/kontakt"
+      "contact_url_info": "Linked when no film exists for the selected display. Default: /pages/kontakt",
+      "style": "Style",
+      "style_hero": "Hero (dark)",
+      "style_light": "Light",
+      "eyebrow": "Eyebrow",
+      "heading_tag": "Heading level",
+      "trust_points": "Trust points",
+      "trust_points_info": "One point per line",
+      "show_visual": "Show display graphic (clear/matte)"
     },
     "defaults": {
-      "heading": "Find the right screen protector",
-      "subheading": "Choose your vehicle and display – we'll show you the perfectly fitting film."
+      "heading": "Protect your infotainment display – precisely.",
+      "subheading": "Choose your vehicle and display. We'll show you the film that fits exactly – clear or matte, single or as an installation kit.",
+      "eyebrow": "Precision-fit screen protectors",
+      "trust_points": "Fit verified\nBubble-free installation\nShips within 48 h"
     }
   },
   "product_fit": {
@@ -1267,6 +1277,46 @@
       "content_set": "Contents: installation kit",
       "set_value": "Option value for the kit",
       "set_value_info": "When the selected variant has this option value, the kit text is shown."
+    }
+  },
+  "custom_sections": {
+    "eyebrow": "Eyebrow",
+    "heading": "Heading",
+    "intro": "Intro",
+    "feature_cards": {
+      "name": "Features & steps",
+      "layout": "Layout",
+      "layout_usp": "Bar (compact)",
+      "layout_cards": "Cards",
+      "layout_steps": "Numbered steps",
+      "tone": "Background",
+      "tone_default": "Default",
+      "tone_white": "White",
+      "tone_tint": "Light blue",
+      "tone_dark": "Dark",
+      "block": "Item",
+      "icon": "Icon",
+      "badge": "Badge",
+      "title": "Title",
+      "text": "Text",
+      "highlight": "Highlight"
+    },
+    "icons": {
+      "target": "Precise fit (target)",
+      "sparkle": "Brilliance",
+      "truck": "Shipping",
+      "shield": "Protection",
+      "car": "Vehicle",
+      "sun": "Sun/glare",
+      "tool": "Installation",
+      "return": "Returns"
+    },
+    "faq": {
+      "name": "FAQ",
+      "open_first": "First question open",
+      "block": "Question",
+      "question": "Question",
+      "answer": "Answer"
     }
   }
 }

@@ -13,17 +13,214 @@
       "type": "vehicle-selector",
       "name": "t:vehicle_selector.name",
       "settings": {
-        "heading": "Finde die passende Displayschutzfolie",
-        "subheading": "Wähle dein Fahrzeug und dein Display – wir zeigen dir die passgenaue Folie.",
+        "style": "hero",
+        "heading_tag": "h1",
+        "eyebrow": "Passgenaue Displayschutzfolien",
+        "heading": "Schütze dein Infotainment-Display – millimetergenau.",
+        "subheading": "Wähle dein Fahrzeug und dein Display. Wir zeigen dir die Folie, die exakt passt – klar oder matt, einzeln oder als Montage-Set.",
+        "trust_points": "Passform geprüft\nBlasenfreie Montage\nVersand in 48 h",
+        "show_visual": true,
         "contact_url": "shopify://pages/contact",
-        "section_width": "page-width",
-        "background_color": "",
-        "padding-block-start": 40,
-        "padding-block-end": 40
+        "padding-block-start": 72,
+        "padding-block-end": 80
       }
+    },
+    "usp_bar": {
+      "type": "feature-cards",
+      "settings": {
+        "layout": "usp",
+        "tone": "white",
+        "padding-block-start": 28,
+        "padding-block-end": 28
+      },
+      "blocks": {
+        "item_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "target",
+            "title": "Millimetergenau",
+            "text": "<p>Für dein Display zugeschnitten</p>"
+          }
+        },
+        "item_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Blasenfrei",
+            "text": "<p>Einfache Montage in 10 Minuten</p>"
+          }
+        },
+        "item_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "title": "Kratzschutz",
+            "text": "<p>Schützt vor Kratzern & Abdrücken</p>"
+          }
+        },
+        "item_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck",
+            "title": "Versand in 48 h",
+            "text": "<p>Gefertigt in Deutschland</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4"
+      ]
+    },
+    "how_it_works": {
+      "type": "feature-cards",
+      "settings": {
+        "layout": "steps",
+        "tone": "default",
+        "eyebrow": "So einfach geht's",
+        "heading": "In drei Schritten zum perfekten Schutz",
+        "intro": "Keine Zuschneiderei, kein Rätselraten: Du wählst dein Display, wir liefern die passende Folie.",
+        "padding-block-start": 80,
+        "padding-block-end": 72
+      },
+      "blocks": {
+        "item_1": {
+          "type": "feature",
+          "settings": {
+            "title": "Fahrzeug wählen",
+            "text": "<p>Marke, Modell, Baujahr – und anhand unserer Hinweise erkennst du sicher, welches Display verbaut ist.</p>"
+          }
+        },
+        "item_2": {
+          "type": "feature",
+          "settings": {
+            "title": "Oberfläche wählen",
+            "text": "<p>Klar für maximale Brillanz oder matt gegen Spiegelungen und Fingerabdrücke.</p>"
+          }
+        },
+        "item_3": {
+          "type": "feature",
+          "settings": {
+            "title": "Selbst montieren",
+            "text": "<p>Mit dem Montage-Set gelingt das Aufbringen blasenfrei – Schritt-für-Schritt-Anleitung inklusive.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3"
+      ]
+    },
+    "clear_vs_matte": {
+      "type": "feature-cards",
+      "settings": {
+        "layout": "cards",
+        "tone": "dark",
+        "eyebrow": "Klar oder matt?",
+        "heading": "Die richtige Oberfläche für dein Display",
+        "intro": "Beide Varianten schützen zuverlässig – der Unterschied liegt in der Optik.",
+        "padding-block-start": 80,
+        "padding-block-end": 80
+      },
+      "blocks": {
+        "item_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Klar",
+            "text": "<ul><li>Nahezu unsichtbar</li><li>Volle Farbbrillanz</li><li>Ideal für Displays ohne Sonneneinstrahlung</li></ul>"
+          }
+        },
+        "item_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "sun",
+            "badge": "Beliebt",
+            "highlight": true,
+            "title": "Matt",
+            "text": "<ul><li>Reduziert Spiegelungen deutlich</li><li>Weniger sichtbare Fingerabdrücke</li><li>Angenehm griffige Oberfläche</li></ul>"
+          }
+        },
+        "item_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "tool",
+            "title": "Montage-Set",
+            "text": "<ul><li>Folie plus Reinigungs- und Montagezubehör</li><li>Rakel für blasenfreies Andrücken</li><li>Empfohlen für die Erstmontage</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3"
+      ]
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "eyebrow": "FAQ",
+        "heading": "Häufige Fragen",
+        "intro": "<p>Deine Frage ist nicht dabei? <a href=\"/pages/kontakt\" title=\"Kontakt\">Schreib uns</a>.</p>",
+        "open_first": true,
+        "tone": "white",
+        "padding-block-start": 80,
+        "padding-block-end": 80
+      },
+      "blocks": {
+        "q_1": {
+          "type": "question",
+          "settings": {
+            "question": "Woher weiß ich, welches Display ich habe?",
+            "answer": "<p>In der Fahrzeugauswahl zeigen wir zu jeder Displayausführung einen Erkennungshinweis – z. B. Displaygröße, Form oder Position der Tasten. Im Zweifel schick uns einfach ein Foto.</p>"
+          }
+        },
+        "q_2": {
+          "type": "question",
+          "settings": {
+            "question": "Beeinträchtigt die Folie die Touch-Bedienung?",
+            "answer": "<p>Nein. Unsere Folien sind dünn und für kapazitive Touchscreens ausgelegt – Wischen, Tippen und Zoomen funktionieren wie gewohnt.</p>"
+          }
+        },
+        "q_3": {
+          "type": "question",
+          "settings": {
+            "question": "Wie lange dauert die Lieferung?",
+            "answer": "<p>Jede Folie wird nach deiner Bestellung zugeschnitten. Fertigung in 1–2 Werktagen, danach Versand mit DHL (2–3 Werktage innerhalb Deutschlands).</p>"
+          }
+        },
+        "q_4": {
+          "type": "question",
+          "settings": {
+            "question": "Kann ich die Folie rückstandslos entfernen?",
+            "answer": "<p>Ja. Die Folie lässt sich jederzeit ohne Rückstände abziehen.</p>"
+          }
+        },
+        "q_5": {
+          "type": "question",
+          "settings": {
+            "question": "Was ist, wenn die Folie nicht passt?",
+            "answer": "<p>Dann melde dich bei uns – wir finden eine Lösung, z. B. einen kostenlosen Ersatz.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q_1",
+        "q_2",
+        "q_3",
+        "q_4",
+        "q_5"
+      ]
     }
   },
   "order": [
-    "vehicle_selector_myn7Tp"
+    "vehicle_selector_myn7Tp",
+    "usp_bar",
+    "how_it_works",
+    "clear_vs_matte",
+    "faq"
   ]
 }

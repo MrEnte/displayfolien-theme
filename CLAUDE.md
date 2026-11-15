@@ -17,6 +17,9 @@ Der Store wird später an den Inhaber übertragen und läuft dann im **Basic**-T
 - Passwortschutz bleibt aktiv.
 - Vor jeder Mutation gegen den Store kurz sagen, was geändert wird. Nichts löschen ohne Rückfrage.
 - Passwörter und Tokens nie in Dateien schreiben oder committen.
+  Einzige Ausnahme: das Store-Passwort in der lokalen `.env` (`DF_STORE_PW=…`, steht in `.gitignore` und
+  `.shopifyignore`) für Screenshots der `theme dev`-Vorschau. Die Datei legt nur der Inhaber/Entwickler selbst an;
+  Claude liest den Wert nur zur Laufzeit im Skript und gibt ihn nie aus.
 
 ## Werkzeuge
 - Theme lokal: `shopify theme dev --store displayfolien-shop-b6zvvgf1.myshopify.com` (Store-Passwort fragt die CLI ab)
@@ -59,6 +62,11 @@ Diese BEISPIELDATEN-Displays stehen seit 15.11.2026 vorübergehend auf `passform
   Eigene Blöcke: `blocks/product-compatibility.liquid` (liest `custom.kompatible_displays`, nur bestätigte Passform),
   `blocks/product-delivery-scope.liquid` + `assets/product-delivery-scope.js` (Text je nach Variante Einzelfolie/Set).
   Lieferzeit, Montagehinweise und Video sind Horizon-Standardblöcke (Text, Akkordeon, Video) im Template.
+- Design „technisch & premium“: Palette Navy `#0B1222`, Akzent Elektroblau `#2F6BFF`, Hellblau `#E8EEFF`,
+  Überschriften Space Grotesk, Text Inter (in `config/settings_data.json`).
+- Eigene Sections: `feature-cards` (Layouts Leiste/Karten/Schritte, Hintergrund Standard/Weiß/Hellblau/Dunkel,
+  Icons in `snippets/feature-icon.liquid`) und `faq`. Section-Hintergründe brauchen die Spezifität
+  `.shopify-section:not(.header-section) .section-background.<klasse>`, sonst überschreibt Horizon die Farbe.
 
 ## Meilenstein 1 – Umfang
 1. ✅ Partner-Konto, Client-Transfer-Store
@@ -79,4 +87,7 @@ Diese BEISPIELDATEN-Displays stehen seit 15.11.2026 vorübergehend auf `passform
 - Testwerte `passform_bestaetigt = true` und Testprodukte (siehe oben) vor dem Launch zurücksetzen bzw. ersetzen.
 - Produktseite: Texte für Lieferzeit, Lieferumfang und Montage sind Platzhalter im Template; Produktbilder und
   Montagevideo fehlen noch (Video-Block zeigt bis dahin einen Platzhalter).
+- Navigationsmenüs (Main menu/Footer menu: „Home“, „Catalog“, „Contact“, „Search“) und Shop-Name sind noch englisch bzw.
+  „displayfolien-shop“ – im Admin unter Inhalte → Menüs bzw. Einstellungen anpassen. Preisformat „€14,90“ → „14,90 €“
+  unter Einstellungen → Allgemein → Währungsformat.
 - `theme dev` mit `--theme-editor-sync` starten, sonst landen Editor-Änderungen nicht lokal.
